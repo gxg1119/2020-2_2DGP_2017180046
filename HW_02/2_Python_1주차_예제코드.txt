@@ -1,0 +1,293 @@
+2) python 예제
+
+- 간단한 계산
+
+>>> 500000+9879674
+10379674
+>>> 9987987345-1010101010
+8977886335
+>>> 100*94753984
+9475398400
+>>> 100/20
+5.0
+
+- 나누기와 나머지 연산
+
+>>> 1/2
+0.5
+>>> 1//2
+0
+>>> 10/9
+1.1111111111111112
+>>> 10//9
+1
+>>> 8%2
+0
+>>> 8%3
+2
+>>> 3.6%2
+1.6
+
+- 원 넓이 반지름이 5미터
+
+>>> 3.141592653589793*(5*5)
+78.53981633974483
+>>> 3.141592653589793*5**2
+78.53981633974483
+
+연산의 느낀점 : 대체로 간단하고 마치 계산기 같아서 편하고 좋다고 생각한다.
+
+- 변수 : 변수 선언이 간단하다. 다만 여러 줄을 쓰게 되거나 겹치는 변수를 선언하게 되면 복잡해질 수도 있다고 생각한다.
+
+>>> pi = 3.141592653589793
+>>> 
+>>> pi * 10**2
+314.1592653589793
+>>> 
+>>> a=10
+>>> b=20
+>>> a**2
+100
+>>> b**3
+8000
+
+- print 함수 이용
+
+>>> print(pi)
+3.141592653589793
+>>> print(a)
+10
+>>> print(b)
+20
+
+- 두 변수로 계산하기
+
+>>> a=15
+>>> b=9
+>>> c=4
+>>> d=a*c+b
+>>> print(d)
+69
+
+- 변수에 문자열(string) 담기 : 문자열을 담는 방법과 출력이 쉽다. python에서의 ' ',와 " "의 차이가 궁금하다.
+
+>>> name1 = '홍태현'
+>>> name2 = "Messi"
+>>> 
+>>> name 3 ="홍태현"
+SyntaxError: invalid syntax
+>>> 
+>>> print(name1)
+홍태현
+>>> print(name2)
+Messi
+
+- 기본 자료형 : c언어와 달리 숫자를 입력하면 자동으로 자료형이 나누어져 좋다.
+
+>>> order =4
+>>> pi = 3.141592
+>>> name = "Trump"
+>>> 
+>>> type(order)
+<class 'int'>
+>>> type(pi)
+<class 'float'>
+>>> type(name)
+<class 'str'>
+
+- 비교연산 해보기 : if문 없이 바로바로 비교 연산을 할 수 있다는게 신기했다.
+
+>>> 4>3
+True
+>>> 3.5<-1.3
+False
+>>> 10>=10
+True
+>>> a=365>366
+>>> print(a)
+False
+>>> type(a)
+<class 'bool'>
+>>> 
+>>> a=35+10>25+10
+>>> print(a)
+True
+
+- str 문자열 : 문자열에 대한 추가나 삭제등이 좋은 것 같다.
+
+>>> first = "Taehyeon"
+>>> last="Hong"
+>>> name = first + " " +last
+>>> name
+'Taehyeon Hong'
+>>> print(name)
+Taehyeon Hong
+>>> 
+>>> name*2
+'Taehyeon HongTaehyeon Hong'
+>>> name*3
+'Taehyeon HongTaehyeon HongTaehyeon Hong'
+>>> 
+>>> name[0]
+'T'
+>>> name[2]
+'e'
+>>> name[-1]
+'g'
+>>> name[-2]
+'n'
+
+- Slice(슬라이스) 예제 : str[::]은 아직까지 어떻게 작동되는지 잘 이해가 가지 않는다.
+
+>>> str = '안녕하세요 게임공학부 17학번 홍태현입니다'
+>>> str[0:5]
+'안녕하세요'
+>>> str[6:11]
+'게임공학부'
+>>> str[12:16]
+'17학번'
+>>> str[17:23]
+'홍태현입니다'
+>>> str[-6:]
+'홍태현입니다'
+>>> str[::2]
+'안하요게공부1학 태입다'
+>>> str[::-1]
+'다니입현태홍 번학71 부학공임게 요세하녕안'
+
+- List 예제 : 배열의 느낌이지만 쓰기에는 C보다 조금 더 쉬운 것 같다.
+
+>>> overwacth_Tnk = ['Reinhardt', 'Zarya', 'D.va', 'Winston', 'Roadhog']
+>>> overwatch_Sup = ['Lucio', 'Mercy', 'Moira', 'Ana', 'Zenyatta', 'Brigitte', 'Baptiste']
+
+>>> overwacth_Tnk
+['Reinhardt', 'Zarya', 'D.va', 'Winston', 'Roadhog']
+>>> overwatch_Sup
+['Lucio', 'Mercy', 'Moira', 'Ana', 'Zenyatta', 'Brigitte', 'Baptiste']
+>>> overwacth_Tnk.sort()
+>>> overwacth_Tnk
+['D.va', 'Reinhardt', 'Roadhog', 'Winston', 'Zarya']
+>>> len(overwatch_Sup)
+7
+>>> Hero = overwacth_Tnk + overwatch_Sup
+>>> Hero
+['D.va', 'Reinhardt', 'Roadhog', 'Winston', 'Zarya', 'Lucio', 'Mercy', 'Moira', 'Ana', 'Zenyatta', 'Brigitte', 'Baptiste']
+>>> Hero.remove('Roadhog')
+>>> Hero
+['D.va', 'Reinhardt', 'Winston', 'Zarya', 'Lucio', 'Mercy', 'Moira', 'Ana', 'Zenyatta', 'Brigitte', 'Baptiste']
+
+- List 에서 Slice  적용
+
+>>> Hero[0]
+'D.va'
+>>> Hero[-2]
+'Brigitte'
+>>> Hero[:5]
+['D.va', 'Reinhardt', 'Winston', 'Zarya', 'Lucio']
+>>> Hero[-2:]
+['Brigitte', 'Baptiste']
+>>> Hero[::2]
+['D.va', 'Winston', 'Lucio', 'Moira', 'Zenyatta', 'Baptiste']
+
+- Dictionary : 대상에 대한 정보를 저장하고 관리하는데에 편리한 것 같다. 정보의 양이 방대하게 많아졌을시에 어떨지 궁금하다.
+
+>>> Hp = {'Reinhardt' : 500, 'Doomfist' : 250, 'Ana' : 200}
+>>> type(Hp)
+<class 'dict'>
+>>> Hp['Ana']
+200
+>>> Hp['Brigitte']
+Traceback (most recent call last):
+  File "<pyshell#152>", line 1, in <module>
+    Hp['Brigitte']
+KeyError: 'Brigitte'
+>>> Hp['Brigitte'] = 250
+>>> Hp
+{'Reinhardt': 500, 'Doomfist': 250, 'Ana': 200, 'Brigitte': 250}
+>>> del Hp['Doomfist']
+>>> Hp
+{'Reinhardt': 500, 'Ana': 200, 'Brigitte': 250}
+>>> Hp.keys()
+dict_keys(['Reinhardt', 'Ana', 'Brigitte'])
+>>> Hp.values()
+dict_values([500, 200, 250])
+>>> 'Reinhardt' in Hp
+True
+>>> 'Genji' in Hp
+False
+>>> 
+>>> Hp.clear()
+>>> Hp
+{}
+
+- Tuple : 값을 못 바꾸는 것이 조금 걸리지만, 상황에 따라 잘 쓰면 효율 적일 것 같다.
+
+>>> t1=(1,2,3)
+>>> t1
+(1, 2, 3)
+>>> t2=(1,)
+>>> t2
+(1,)
+>>> t3=()
+>>> t3
+()
+>>> t4 = 1,2,3,4
+>>> t4
+(1, 2, 3, 4)
+>>> type(t1)
+<class 'tuple'>
+>>> type(t2)
+<class 'tuple'>
+>>> type(t4)
+<class 'tuple'>
+>>> t5 = (1, 'a', "park", (1, 2))
+>>> t5
+(1, 'a', 'park', (1, 2))
+>>> type(t5)
+<class 'tuple'>
+>>> t1[1:]
+(2, 3)
+>>> t4 + t5
+(1, 2, 3, 4, 1, 'a', 'park', (1, 2))
+>>> t4 * t4
+Traceback (most recent call last):
+  File "<pyshell#182>", line 1, in <module>
+    t4 * t4
+TypeError: can't multiply sequence by non-int of type 'tuple'
+>>> t4 * 3
+(1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4)
+
+- set : 어디에서 써야할지 감이 잘 오지 않는다. 단순히 리스트에 있는 값이 중복없이 어떤 값만이 존재하는지를 알고 싶을때 좋을것 같다.
+
+>>> s1 = {1,2,3}
+>>> type(s1)
+<class 'set'>
+>>> s1 = {1,2,2,3,3,3,4,4,4,4}
+>>> s1
+{1, 2, 3, 4}
+>>> t1 = [1,1,1,1,2,2,2,3,3,4]
+>>> type(t1)
+<class 'list'>
+>>> s1 = set(t1)
+>>> s1
+{1, 2, 3, 4}
+>>> s2 = {3,4,5,6}
+>>> s1 + s2
+Traceback (most recent call last):
+  File "<pyshell#195>", line 1, in <module>
+    s1 + s2
+TypeError: unsupported operand type(s) for +: 'set' and 'set'
+>>> s1 | s2
+{1, 2, 3, 4, 5, 6}
+>>> s1 & s2
+{3, 4}
+>>> s2 - s1
+{5, 6}
+>>> s1 - s2
+{1, 2}
+>>> s1.add(9)
+>>> s1
+{1, 2, 3, 4, 9}
+>>> s2.remove(4)
+>>> s2
+{3, 5, 6}
