@@ -1,7 +1,7 @@
 -----
 # 1. 게임의 소개
 * **제목** : 드래곤 플라이트 (Dragon flights)
-* **목적** : 내려오는 몬스터를 공격으로 처치하거나 피하면서 계속 진행해 나아가는 게임입니다.
+* **목적** : 드래곤 용사들이 내려오는 몬스터를 공격으로 처치하거나 피하면서 모험을 계속 진행해 나아가는 게임입니다.
 * **방법** : 좌우 방향키를 이용하여 몬스터나, 몬스터들이 날리는 공격을 피하여 진행한다. (공격은 자동 공격이다.)
 #### **[게임 이미지]**
 ![image_readtop_2013_480672_1371606866951977](https://user-images.githubusercontent.com/70965350/94258957-ac436100-ff68-11ea-9fbe-375e186ad7e9.jpg)
@@ -12,7 +12,7 @@
 * Title state
 * Menu state
 * Play state 
-* Game clear or over state
+* Game over state
 -----
 # 3. GameState (Scene)의 설명
 * **Loading state**
