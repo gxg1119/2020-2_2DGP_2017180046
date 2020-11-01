@@ -33,13 +33,13 @@ class Player:
     def fire(self):
         self.laser_time = 0
         bullet = LaserBullet(self.x, self.y, 5)
-        gfw_world.add(bullet)
+        gfw_world.add(gfw.layer.bullet, bullet)
         
     def draw(self):
         self.image.clip_draw(self.fidx*150, 0, 150, 150, self.x, self.y)
             
     def update(self):
-        self.x += self.dx * self.speed
+        self.x += self.dx * self.speed * gfw.delta_time
        # self.fidx = (self.fidx+1)%8
         self.player_time += gfw.delta_time
         self.laser_time += gfw.delta_time
