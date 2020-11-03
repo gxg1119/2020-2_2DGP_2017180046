@@ -12,9 +12,9 @@ class Enemy:
         # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.x, self.y = x, get_canvas_height()
         self.dx, self.dy = 0, speed
-        self.image = gfw_image.load(RES_DIR + '/dragon01.png')
+        self.image = gfw_image.load(RES_DIR + '/dragon.png')
         self.fidx = 0
-        self.src_width = self.image.w // 4
+        self.src_width = self.image.w // 2
         self.src_height = self.image.h
         self.time = 0
     def draw(self):
