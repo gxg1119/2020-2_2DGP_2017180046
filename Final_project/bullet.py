@@ -11,7 +11,7 @@ class LaserBullet:
     def __init__(self, x, y, speed):
         # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.x, self.y = x, y
-        self.dy = speed+10
+        self.dy = speed+750
         self.image = gfw_image.load(RES_DIR + '/bullet_01.png')
 
     def draw(self):

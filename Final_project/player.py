@@ -20,7 +20,7 @@ class Player:
     def __init__(self):
         self.x, self.y = 250, 90
         self.dx = 0
-        self.speed = 10
+        self.speed = 750
         self.image = gfw_image.load(RES_DIR + '/Player_01.png')
         half = self.image.w
         self.minx = 75
