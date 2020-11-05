@@ -17,7 +17,7 @@ def update():
 def generate_wave():
     global wave_index, next_wave
     for x in GEN_X:
-        e = Enemy(x, -1)
+        e = Enemy(x, -200)
         gfw_world.add(gfw.layer.enemy, e)
 
     wave_index += 1

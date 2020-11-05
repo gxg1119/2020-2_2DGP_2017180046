@@ -14,7 +14,7 @@ class Player:
         (SDL_KEYUP, SDLK_RIGHT):   -1,
     }
     KEYDOWN_SPACE = (SDL_KEYDOWN, SDLK_SPACE)
-    LASER_INTERVAL = 0.05
+    LASER_INTERVAL = 0.1
 
     #constructor
     def __init__(self):
@@ -32,7 +32,7 @@ class Player:
         
     def fire(self):
         self.laser_time = 0
-        bullet = LaserBullet(self.x, self.y, 5)
+        bullet = LaserBullet(self.x, self.y, 1000)
         gfw_world.add(gfw.layer.bullet, bullet)
         
     def draw(self):
@@ -55,3 +55,8 @@ class Player:
         pair = (e.type, e.key)
         if(pair in Player.KEY_MAP):
             self.dx += Player.KEY_MAP[pair]
+
+    def get_bb(self):
+        hw = 30
+        hh = 75
+        return self.x - hw, self.y - hh, self.x + hw, self.y + hh

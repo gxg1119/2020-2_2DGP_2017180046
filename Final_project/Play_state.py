@@ -16,13 +16,29 @@ def enter():
     player = Player()
     gfw_world.add(gfw.layer.player, player)
 
+def check_enemy(e):
+    if gobj.collides_box(player, e):
+        print('Player Collision', e)
+        e.remove()
+        return
+
+    for b in gfw_world.objects_at(gfw.layer.bullet):
+        if gobj.collides_box(b, e):
+            print('Collision', e, b)
+            e.remove()
+            b.remove()
+            return
+        
 def update():
     gfw_world.update()
     enemy_gen.update()
+    for e in gfw_world.objects_at(gfw.layer.enemy):
+        check_enemy(e)
     #print(gfw.delta_time)
     
 def draw():
     gfw_world.draw()
+    gobj.draw_collision_box()
 
 def handle_event(e):
     global player

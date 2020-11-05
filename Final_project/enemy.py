@@ -7,7 +7,7 @@ from gobj import *
 class Enemy:
     enemies = []
     trashcan = []
-    SIZE = 96
+    SIZE = 50
     def __init__(self, x, speed):
         # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.x, self.y = x, get_canvas_height()
@@ -25,7 +25,7 @@ class Enemy:
         self.time += gfw.delta_time
         self.fidx = int(self.time * 10) % 2
         # self.x += self.dx
-        self.y += self.dy * gfw.delta_time * 100
+        self.y += self.dy * gfw.delta_time
         
         if self.y < -Enemy.SIZE:
             self.remove()
@@ -33,5 +33,8 @@ class Enemy:
     def remove(self):
         gfw_world.remove(self)
 
+    def get_bb(self):
+        half = Enemy.SIZE
+        return self.x - half, self.y - half, self.x + half, self.y + half
 
 
