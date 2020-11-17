@@ -10,6 +10,7 @@ class LaserBullet:
         self.x, self.y = x, y
         self.dy = speed
         self.image = gfw.image.load(RES_DIR + '/bullet_01.png')
+        self.power = 70
 
     def draw(self):
         self.image.draw(self.x, self.y + 75)
