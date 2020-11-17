@@ -1,5 +1,4 @@
 import gfw
-import gfw_image
 from pico2d import *
 from gobj import *
 import Title_state
@@ -7,7 +6,7 @@ import Title_state
 
 def enter():
     global image, logo_image, elapsed
-    image = gfw_image.load_image(RES_DIR + '/Loading.png')
+    image = gfw.image.load_image(RES_DIR + '/Loading.png')
     elapsed = 0
 
 def update():

@@ -1,12 +1,11 @@
 import gfw
-import gfw_image
 from pico2d import *
 from gobj import *
 import Play_state
 
 def enter():
     global image, game_start_box, game_end_box
-    image = gfw_image.load_image(RES_DIR + '/Title.png')
+    image = gfw.image.load_image(RES_DIR + '/Title.png')
     game_start_box = load_image(RES_DIR + '/Gamestart.png')
     game_end_box = load_image(RES_DIR + '/Gameend.png')
 
