@@ -1,9 +1,10 @@
-import random
 import gfw
 import gfw_world
+import gfw_font
 from pico2d import *
 from player import Player
 from bullet import LaserBullet
+from score import Score
 import enemy_gen
 import gobj
 
@@ -11,20 +12,29 @@ canvas_width = 750
 canvas_height = 1000
 
 def enter():
-    gfw_world.init(['bg', 'enemy', 'bullet', 'player'])
+    gfw_world.init(['bg', 'enemy', 'bullet', 'player', 'ui'])
     global player
     player = Player()
     gfw_world.add(gfw.layer.player, player)
 
+    global score
+    score = Score(canvas_width - 20, canvas_height - 50)
+    gfw_world.add(gfw.layer.ui, score)
+
+    global font
+    font = gfw_font.load(gobj.RES_DIR + '/barun.ttf', 40)
+    
+
 def check_enemy(e):
     if gobj.collides_box(player, e):
-        print('Player Collision', e)
+        #print('Player Collision', e)
         e.remove()
         return
 
     for b in gfw_world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, e):
-            print('Collision', e, b)
+            #print('Collision', e, b)
+            score.score += e.level * 10
             e.remove()
             b.remove()
             return
@@ -39,6 +49,7 @@ def update():
 def draw():
     gfw_world.draw()
     gobj.draw_collision_box()
+    font.draw(20, canvas_height - 45, 'Wave: %d' % enemy_gen.wave_index)
 
 def handle_event(e):
     global player

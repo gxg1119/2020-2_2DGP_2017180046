@@ -8,11 +8,12 @@ class Enemy:
     enemies = []
     trashcan = []
     SIZE = 50
-    def __init__(self, x, speed):
+    def __init__(self, x, speed, level):
         # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
-        self.x, self.y = x, get_canvas_height()
+        self.x, self.y = x, get_canvas_height() + Enemy.SIZE
         self.dx, self.dy = 0, speed
-        self.image = gfw_image.load(RES_DIR + '/dragon.png')
+        self.level = level
+        self.image = gfw_image.load(RES_DIR + '/dragon_%02d.png' %level)
         self.fidx = 0
         self.src_width = self.image.w // 2
         self.src_height = self.image.h
@@ -25,7 +26,7 @@ class Enemy:
         self.time += gfw.delta_time
         self.fidx = int(self.time * 10) % 2
         # self.x += self.dx
-        self.y += self.dy * gfw.delta_time
+        self.y += self.dy * gfw.delta_time * 200
         
         if self.y < -Enemy.SIZE:
             self.remove()

@@ -16,9 +16,28 @@ def update():
 
 def generate_wave():
     global wave_index, next_wave
+    
     for x in GEN_X:
-        e = Enemy(x, -200)
+        level = enemy_level()
+        speed = -(1 + wave_index/20)
+        e = Enemy(x, speed, level)
         gfw_world.add(gfw.layer.enemy, e)
 
     wave_index += 1
     next_wave = random.uniform(5, 6)
+
+LEVEL_ADJUST_PERCENTS = [ 10, 15, 15, 40, 15, 5 ] # -3 ~ 2
+def enemy_level():
+    level = (wave_index - 5) // 10 - 3;
+    percent = random.randrange(100)
+    pl = level
+    pp = percent
+    for p in LEVEL_ADJUST_PERCENTS:
+        if percent < p: break
+        percent -= p
+        level += 1
+    # print(pl, '->', level, ', ', pp, '->', percent)
+    if level < 1: level = 1
+    if level > 10: level = 10
+    return level
+

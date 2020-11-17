@@ -51,7 +51,7 @@ def update():
         obj.update()
     if len(trashcan) > 0:
         empty_trashcan()
-    counts = list(map(len, objects))
+    #counts = list(map(len, objects))
 
 def draw():
     for obj in all_objects():
@@ -71,4 +71,4 @@ def empty_trashcan():
 
     trashcan = []
 
-    print('total objects count =', len(objects))
+    #print('total objects count =', len(objects))
