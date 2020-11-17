@@ -1,7 +1,5 @@
 from pico2d import *
 import gfw
-import gfw_image
-import gfw_world
 from gobj import *
 
 class Enemy:
@@ -13,7 +11,7 @@ class Enemy:
         self.x, self.y = x, get_canvas_height() + Enemy.SIZE
         self.dx, self.dy = 0, speed
         self.level = level
-        self.image = gfw_image.load(RES_DIR + '/dragon_%02d.png' %level)
+        self.image = gfw.image.load(RES_DIR + '/dragon_%02d.png' %level)
         self.fidx = 0
         self.src_width = self.image.w // 2
         self.src_height = self.image.h
@@ -32,7 +30,7 @@ class Enemy:
             self.remove()
             
     def remove(self):
-        gfw_world.remove(self)
+        gfw.world.remove(self)
 
     def get_bb(self):
         half = Enemy.SIZE
