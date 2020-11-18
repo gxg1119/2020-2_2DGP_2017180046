@@ -7,18 +7,21 @@ MONEY_MOVE_PPS =200
 MONEY_SIZE = 40
 
 class Money:
-	def __init__(self, x, y, dy):
-		global money
+	def __init__(self, x, y, dx, dy):
 		self.x, self.y = x, y
-		self.dy = random.uniform(2,4)
+		self.dx, self.dy = dx*0.5, -random.uniform(2,3)
 		self.image = gfw.image.load(RES_DIR + '/money.png')
 
 	def update(self):
-		global money_cout
-		y = self.y
-		dy = self.dy
-		y -= dy * MONEY_MOVE_PPS * gfw.delta_time
-		self.y = y
+		x, y = self.x, self.y
+		dx, dy = self.dx, self.dy
+		x += dx * MONEY_MOVE_PPS * gfw.delta_time
+		y += dy * MONEY_MOVE_PPS * gfw.delta_time
+
+		hw = self.image.w //2
+		x = clamp(hw, x, get_canvas_width() - hw)
+
+		self.x, self.y = x, y
 
 	def draw(self):
 		self.image.draw(self.x, self.y)
@@ -27,7 +30,11 @@ class Money:
 		gfw.world.remove(self)
 
 	def generate(self):
-		money=Money(self.x, self.y, self.dy)
+		self.side = random.randint(1, 2)
+		if self.side == 1: self.dx = -1
+		else: self.dx = 1
+
+		money=Money(self.x, self.y, self.dx, self.dy)
 		gfw.world.add(gfw.layer.money, money)
 
 	def get_bb(self):

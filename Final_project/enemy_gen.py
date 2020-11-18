@@ -24,7 +24,7 @@ def generate_wave():
 
     print(wave_index, level)
     wave_index += 1
-    next_wave = random.uniform(4, 5)
+    next_wave = random.uniform(3, 4)
 
 def enemy_level():
     level = wave_index // 5;
