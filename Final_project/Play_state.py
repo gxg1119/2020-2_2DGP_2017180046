@@ -12,7 +12,7 @@ canvas_width = 750
 canvas_height = 1000
 
 def enter():
-    gfw.world.init(['bg', 'enemy', 'bullet', 'player', 'ui'])
+    gfw.world.init(['bg', 'enemy', 'bullet', 'player', 'ui', 'money'])
     global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)
@@ -27,7 +27,7 @@ def enter():
     life_gauge.load()
 
     bg=VertScrollBackground('/map_01.png')
-    bg.speed = 50
+    bg.speed = 100
     gfw.world.add(gfw.layer.bg,bg)
     
 def check_enemy(e):
@@ -45,6 +45,11 @@ def check_enemy(e):
                 e.remove()
             b.remove()
             return
+
+def check_money(m):
+    if gobj.collides_box(player, m):
+        m.remove()
+        return
         
 def update():
     gfw.world.update()
@@ -52,7 +57,8 @@ def update():
     
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
-    #print(gfw.delta_time)
+    for m in gfw.world.objects_at(gfw.layer.money):
+        check_money(m)
     
 def draw():
     gfw.world.draw()
