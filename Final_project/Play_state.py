@@ -6,6 +6,7 @@ from score import Score
 import gobj
 import enemy_gen
 import life_gauge
+from background import VertScrollBackground
 
 canvas_width = 750
 canvas_height = 1000
@@ -24,6 +25,10 @@ def enter():
     font = gfw.font.load(gobj.RES_DIR + '/barun.ttf', 40)
 
     life_gauge.load()
+
+    bg=VertScrollBackground('/map_01.png')
+    bg.speed = 50
+    gfw.world.add(gfw.layer.bg,bg)
     
 def check_enemy(e):
     if gobj.collides_box(player, e):

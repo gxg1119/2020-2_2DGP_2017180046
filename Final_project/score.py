@@ -8,7 +8,7 @@ class Score:
     def __init__(self, right, y):
         # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.right, self.y = right, y
-        self.image = gfw.image.load(RES_DIR + '/number_24x32.png')
+        self.image = gfw.image.load(RES_DIR + '/number_font.png')
         self.digit_width = self.image.w // 10
         self.reset()
         

@@ -26,12 +26,10 @@ def generate_wave():
     wave_index += 1
     next_wave = random.uniform(4, 5)
 
-LEVEL_ADJUST_PERCENTS = [ 10, 15, 15, 40, 15, 5 ] # -3 ~ 2
-
 def enemy_level():
     level = wave_index // 5;
     level += 1
     if level < 1: level = 1
-    if level > 10: level = 10
+    if level > 5: level = 5
     return level
 
