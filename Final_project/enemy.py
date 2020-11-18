@@ -2,6 +2,8 @@ from pico2d import *
 import gfw
 from gobj import *
 import life_gauge
+import money
+
 
 class Enemy:
     enemies = []
@@ -38,6 +40,8 @@ class Enemy:
             
     def remove(self):
         gfw.world.remove(self)
+        money.Money.generate(self)
+        #print(self.money)
         
     def decrease_life(self, amount):
         self.life -= amount
