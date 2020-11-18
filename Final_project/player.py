@@ -16,7 +16,7 @@ class Player:
 
     #constructor
     def __init__(self):
-        self.x, self.y = 250, 90
+        self.x, self.y = 375, 90
         self.dx = 0
         self.speed = 750
         self.image = gfw.image.load(RES_DIR + '/Player_01.png')

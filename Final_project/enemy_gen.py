@@ -5,7 +5,7 @@ from enemy import Enemy
 
 GEN_X  = [75, 225, 375, 525, 675]
 next_wave = 0
-wave_index = 0
+wave_index = 24
 
 def update():
     global next_wave
@@ -27,9 +27,7 @@ def generate_wave():
     next_wave = random.uniform(3, 4)
 
 def enemy_level():
-    level = wave_index // 5;
+    level = wave_index // 5
     level += 1
-    if level < 1: level = 1
-    if level > 5: level = 5
     return level
 

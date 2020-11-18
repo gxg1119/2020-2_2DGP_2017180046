@@ -5,14 +5,16 @@ from bullet import LaserBullet
 from score import Score
 import gobj
 import enemy_gen
+import boss_gen
 import life_gauge
+import boss
 from background import VertScrollBackground
 
 canvas_width = 750
 canvas_height = 1000
 
 def enter():
-    gfw.world.init(['bg', 'enemy', 'bullet', 'player', 'ui', 'money'])
+    gfw.world.init(['bg', 'enemy', 'bullet', 'player', 'ui', 'money','boss'])
     global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)
@@ -54,6 +56,9 @@ def check_money(m):
 def update():
     gfw.world.update()
     enemy_gen.update()
+    level = enemy_gen.enemy_level()
+    if level > 5:
+        boss_gen.update()
     
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
