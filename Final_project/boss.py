@@ -30,4 +30,5 @@ class Boss:
 		gfw.world.remove(self)
 
 	def get_bb(self):
-		pass
+		half = Boss.SIZE
+		return self.x - half, self.y - half, self.x + half, self.y + half
