@@ -13,11 +13,17 @@ from background import VertScrollBackground
 canvas_width = 750
 canvas_height = 1000
 
+boss_ox = True
 def enter():
-    gfw.world.init(['bg', 'enemy', 'bullet', 'player', 'ui', 'money','boss'])
+    gfw.world.init(['bg', 'enemy', 'boss','bullet', 'player', 'ui', 'money'])
     global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)
+
+    global boss
+    boss = boss.Boss()
+    boss.dy = -1
+    #gfw.world.add(gfw.layer.boss, boss)
 
     global score
     score = Score(canvas_width - 20, canvas_height - 50)
@@ -52,13 +58,19 @@ def check_money(m):
     if gobj.collides_box(player, m):
         m.remove()
         return
-        
+
 def update():
+    global boss_ox
     gfw.world.update()
-    enemy_gen.update()
+
+    if boss_ox == True:
+        enemy_gen.update()
+
     level = enemy_gen.enemy_level()
+
     if level > 5:
-        boss_gen.update()
+        boss_ox = False
+        gfw.world.add(gfw.layer.boss, boss)
     
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
