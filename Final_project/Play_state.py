@@ -22,7 +22,7 @@ def enter():
 
     global boss
     boss = boss.Boss()
-    boss.dy = -50
+    boss.dx, boss.dy = 20, -50
     gfw.world.add(gfw.layer.boss, boss)
 
     global score
