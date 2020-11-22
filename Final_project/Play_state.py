@@ -22,8 +22,8 @@ def enter():
 
     global boss
     boss = boss.Boss()
-    boss.dy = -1
-    #gfw.world.add(gfw.layer.boss, boss)
+    boss.dy = -50
+    gfw.world.add(gfw.layer.boss, boss)
 
     global score
     score = Score(canvas_width - 20, canvas_height - 50)
@@ -57,8 +57,11 @@ def check_enemy(e):
 def check_boss(boss):
     for b in gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, boss):
+            boss_dead = boss.decrease_life(b.power)
+            if boss_dead:
+                score.score += 10000
+                boss.remove()
             b.remove()
-            print('')
             return
 
 def check_money(m):
@@ -77,7 +80,7 @@ def update():
 
     if level > 5:
         boss_ox = False
-        gfw.world.add(gfw.layer.boss, boss)
+        boss.update()
     
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
