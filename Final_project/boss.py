@@ -42,7 +42,6 @@ class Boss:
 
 	def decrease_life(self, amount):
 		self.life -= amount
-		print(self.life)
 		return self.life <= 0
 
 	def score(self):

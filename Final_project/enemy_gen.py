@@ -5,7 +5,7 @@ from enemy import Enemy
 
 GEN_X  = [75, 225, 375, 525, 675]
 next_wave = 0
-wave_index = 4
+wave_index = 0
 
 def update():
     global next_wave
@@ -22,7 +22,7 @@ def generate_wave():
         e = Enemy(x, speed, level)
         gfw.world.add(gfw.layer.enemy, e)
 
-    print(wave_index, level)
+    #print(wave_index, level)
     wave_index += 1
     next_wave = random.uniform(3, 4)
 

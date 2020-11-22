@@ -4,6 +4,8 @@ import gfw
 from gobj import *
 from bullet import *
 
+MAX_LIFE = 10
+
 class Player:
     KEY_MAP = {
         (SDL_KEYDOWN, SDLK_LEFT):  -1,
@@ -16,7 +18,7 @@ class Player:
 
     #constructor
     def __init__(self):
-        self.x, self.y = 375, 90
+        self.x, self.y = 375, 150
         self.dx = 0
         self.speed = 750
         self.image = gfw.image.load(RES_DIR + '/Player_01.png')
@@ -27,15 +29,31 @@ class Player:
         
         self.player_time =0
         self.laser_time = 0
+
+        self.life = MAX_LIFE
+        self.hp_1 = gfw.image.load(RES_DIR + '/hp_heart_01.png')
+        self.hp_2 = gfw.image.load(RES_DIR + '/hp_heart_02.png')
         
     def fire(self):
         self.laser_time = 0
         bullet = LaserBullet(self.x, self.y, 1000)
         gfw.world.add(gfw.layer.bullet, bullet)
+
+    def decrease_life(self):
+        self.life -= 1
+        print(self.life)
+        return self.life <= 0
         
     def draw(self):
         self.image.clip_draw(self.fidx*150, 0, 150, 150, self.x, self.y)
-            
+        
+        global MAX_LIFE
+        self.hx, self.hy = get_canvas_width() // 2 + 45, 50
+        for i in range(MAX_LIFE):
+            self.hp = self.hp_1 if i < self.life else self.hp_2
+            self.hp.draw(self.hx, self.hy, 40, 40)
+            self.hx -= self.hp.w + 10
+
     def update(self):
         self.x += self.dx * self.speed * gfw.delta_time
        # self.fidx = (self.fidx+1)%8

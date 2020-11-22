@@ -40,19 +40,20 @@ def enter():
     
 def check_enemy(e):
     if gobj.collides_box(player, e):
-        #print('Player Collision', e)
         e.remove()
-        return
+        player_dead = player.decrease_life()
+        if player_dead:
+            print('Dead')
+        
 
     for b in gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, e):
             #print('Collision', e, b)
-            dead = e.decrease_life(b.power)
-            if dead:
+            enemy_dead = e.decrease_life(b.power)
+            if enemy_dead:
                 score.score += e.level * 100
                 e.remove()
             b.remove()
-            return
 
 def check_boss(boss):
     for b in gfw.world.objects_at(gfw.layer.bullet):
