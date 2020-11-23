@@ -4,7 +4,7 @@ from gobj import *
 
 class Boss_Bullet:
 
-    SIZE = 50
+    SIZE = 10
     def __init__(self, x, y, direction, speed):
         self.x, self.y = x, y
         self.dx, self.dy = direction, speed
@@ -36,4 +36,4 @@ class Boss_Bullet:
     def get_bb(self):
         hw = Boss_Bullet.SIZE
         hh = Boss_Bullet.SIZE
-        return self.x - hw, self.y + 75 - hh, self.x + hw, self.y + 75 + hh    
+        return self.x - hw, self.y - hh, self.x + hw, self.y + hh    

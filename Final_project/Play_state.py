@@ -5,7 +5,6 @@ from bullet import LaserBullet
 from score import Score
 import gobj
 import enemy_gen
-#import boss_gen
 import life_gauge
 import boss
 from background import VertScrollBackground
@@ -14,6 +13,7 @@ canvas_width = 750
 canvas_height = 1000
 
 boss_ox = True
+
 def enter():
     gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'money'])
     global player
@@ -48,7 +48,6 @@ def check_enemy(e):
 
     for b in gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, e):
-            #print('Collision', e, b)
             enemy_dead = e.decrease_life(b.power)
             if enemy_dead:
                 score.score += e.level * 100
@@ -63,7 +62,13 @@ def check_boss(boss):
                 score.score += 10000
                 boss.remove()
             b.remove()
-            return
+
+    for bb in gfw.world.objects_at(gfw.layer.boss_bullet):
+        if gobj.collides_box(bb, player):
+            bb.remove()
+            player_dead = player.decrease_life()
+            if player_dead:
+                print("Dead")
 
 def check_money(m):
     if gobj.collides_box(player, m):
@@ -82,7 +87,6 @@ def update():
 
     if level > 5:
         boss_ox = False
-        #boss.update()
     
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
@@ -93,7 +97,7 @@ def update():
     
 def draw():
     gfw.world.draw()
-    #gobj.draw_collision_box()
+    gobj.draw_collision_box()
     font.draw(20, canvas_height - 45, 'Wave: %d' % enemy_gen.wave_index)
 
 def handle_event(e):

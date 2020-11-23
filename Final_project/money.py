@@ -4,7 +4,7 @@ from gobj import *
 import random
 
 MONEY_MOVE_PPS =200
-MONEY_SIZE = 40
+MONEY_SIZE = 20
 
 class Money:
 	def __init__(self, x, y, dx, dy):

@@ -68,7 +68,7 @@ class Player:
         
         if self.x < self.minx: self.x = self.minx
         elif self.x > self.maxx: self.x = self.maxx
-        
+
         if self.laser_time >= Player.LASER_INTERVAL:
             self.fire()
             
@@ -79,5 +79,5 @@ class Player:
 
     def get_bb(self):
         hw = 30
-        hh = 75
+        hh = 40
         return self.x - hw, self.y - hh, self.x + hw, self.y + hh

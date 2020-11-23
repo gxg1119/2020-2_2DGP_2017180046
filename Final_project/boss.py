@@ -66,5 +66,6 @@ class Boss:
 		gfw.world.remove(self)
 
 	def get_bb(self):
-		half = Boss.SIZE
-		return self.x - half, self.y - half, self.x + half, self.y + half
+		hw = 200
+		hh = 100
+		return self.x - hw, self.y - hh, self.x + hw, self.y + hh
