@@ -1,13 +1,15 @@
 from pico2d import *
 import gfw
 from gobj import *
+from boss_bullet import *
 import life_gauge
 
-appear_boss_time = 4
+appear_boss_time = 5
 
 class Boss:
 	SIZE = 100
-	
+	LASER_INTERVAL = 0.5
+
 	def __init__(self):
 		self.x, self.y = 375, get_canvas_height()+300
 		self.dx, self.dy = 0, 0
@@ -18,6 +20,7 @@ class Boss:
 		self.life = self.max_life
 		self.fidx = 0
 		self.boss_time = 0
+		self.boss_laser_time = 0
 
 	def draw(self):
 		sx = self.fidx * self.src_width
@@ -29,8 +32,11 @@ class Boss:
 	def update(self):
 		global appear_boss_time
 		appear_boss_time -= gfw.delta_time
+		self.boss_laser_time += gfw.delta_time
+		#print(appear_boss_time)
 		if appear_boss_time <0:
 			self.boss_time += gfw.delta_time
+			#print(self.boss_time)
 			self.fidx = int(self.boss_time) % 2
 			self.y += self.dy * gfw.delta_time
 			if self.y < 700 :
@@ -38,6 +44,14 @@ class Boss:
 				self.x += self.dx * gfw.delta_time
 				if self.x < 250 or self.x> 500:
 					self.dx*=-1
+
+		if self.boss_laser_time >= Boss.LASER_INTERVAL:
+			self.fire()
+
+	def fire(self):
+		self.boss_laser_time = 0
+		boss_bullet = Boss_Bullet(self.x, self.y, 100)
+		gfw.world.add(gfw.layer.boss_bullet, boss_bullet)
 
 
 	def decrease_life(self, amount):
