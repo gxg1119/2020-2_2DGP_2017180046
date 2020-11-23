@@ -15,7 +15,7 @@ canvas_height = 1000
 boss_ox = True
 
 def enter():
-    gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'money'])
+    gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'money', 'item'])
     global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)

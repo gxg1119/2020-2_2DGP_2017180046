@@ -9,7 +9,7 @@ MONEY_SIZE = 20
 class Money:
 	def __init__(self, x, y, dx, dy):
 		self.x, self.y = x, y
-		self.dx, self.dy = dx*0.5, -random.uniform(2,3)
+		self.dx, self.dy = dx*0.5, -random.uniform(2.0, 3.0)
 		self.image = gfw.image.load(RES_DIR + '/money.png')
 
 		self.side = random.randint(1, 2)

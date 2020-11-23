@@ -3,6 +3,7 @@ import gfw
 from gobj import *
 import life_gauge
 import money
+import item
 
 
 class Enemy:
@@ -41,6 +42,7 @@ class Enemy:
     def remove(self):
         gfw.world.remove(self)
         money.Money.generate(self)
+        item.Item.generate(self)
         #print(self.money)
         
     def decrease_life(self, amount):
