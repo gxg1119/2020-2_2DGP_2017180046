@@ -1,6 +1,7 @@
 from pico2d import *
 import gfw
 from gobj import *
+import random
 import life_gauge
 import money
 import item
@@ -22,6 +23,8 @@ class Enemy:
         self.src_width = self.image.w // 2
         self.src_height = self.image.h
         self.time = 0
+
+        self.item_gen = random.randint(1, 15)
         
     def draw(self):
         sx = self.fidx * self.src_width
@@ -42,7 +45,8 @@ class Enemy:
     def remove(self):
         gfw.world.remove(self)
         money.Money.generate(self)
-        item.Item.generate(self)
+        if self.item_gen == 1:
+            item.Item.generate(self)
         #print(self.money)
         
     def decrease_life(self, amount):

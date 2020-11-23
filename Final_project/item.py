@@ -4,7 +4,7 @@ from gobj import *
 import random
 
 ITEM_MOVE_PPS = 200
-ITEM_SIZE = 50
+ITEM_SIZE = 30
 class Item:
 
 	def __init__(self, x, y, dx, dy):
@@ -13,15 +13,15 @@ class Item:
 		self.Dualshot_image = gfw.image.load(RES_DIR + '/dualshot.png')
 		self.Powershot_image = gfw.image.load(RES_DIR + '/powershot.png')
 
-		self.choose = random.randint(1, 2)
+		self.choose = random.randint(1, 5)
 
 		self.x_direction = random.randint(1, 2)
 
 	def draw(self):
 		if self.choose == 1:
-			self.Dualshot_image.draw(self.x, self.y)
-		else:
 			self.Powershot_image.draw(self.x, self.y)
+		else:
+			self.Dualshot_image.draw(self.x, self.y)
 
 	def update(self):
 		x, y = self.x, self.y

@@ -76,6 +76,11 @@ def check_money(m):
         m.remove()
         return
 
+def check_item(i):
+    if gobj.collides_box(player, i):
+        i.remove()
+        return
+
 def update():
     global boss_ox
     gfw.world.update()
@@ -92,6 +97,8 @@ def update():
         check_enemy(e)
     for m in gfw.world.objects_at(gfw.layer.money):
         check_money(m)
+    for i in gfw.world.objects_at(gfw.layer.item):
+        check_item(i)
     for e_b in gfw.world.objects_at(gfw.layer.boss):
         check_boss(e_b)
     

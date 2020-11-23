@@ -4,7 +4,7 @@ from gobj import *
 from boss_bullet import *
 import life_gauge
 
-appear_boss_time = 1
+appear_boss_time = 100
 
 class Boss:
 	SIZE = 100
