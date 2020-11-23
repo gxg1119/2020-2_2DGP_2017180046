@@ -5,16 +5,27 @@ from gobj import *
 class Boss_Bullet:
 
     SIZE = 50
-    def __init__(self, x, y, speed):
+    def __init__(self, x, y, direction, speed):
         self.x, self.y = x, y
-        self.dy = speed
+        self.dx, self.dy = direction, speed
         self.image = gfw.image.load(RES_DIR + '/boss_bullet.png')
+        self.side = random.randint(1, 4)
 
     def draw(self):
         self.image.draw(self.x, self.y)
 
     def update(self):
-        self.y -= self.dy * gfw.delta_time
+        x, y = self.x, self.y
+        dx, dy = self.dx, self.dy
+        x += dx * gfw.delta_time
+        y -= dy * gfw.delta_time
+
+        self.x, self.y = x, y
+
+        if self.side == 1: self.dx = -100
+        elif self.side == 2: self.dx = 100
+        elif self.side == 3: self.dx = 200
+        else: self.dx = -200
 
         if self.y > get_canvas_height() + Boss_Bullet.SIZE:
             self.remove()

@@ -4,7 +4,7 @@ from gobj import *
 from boss_bullet import *
 import life_gauge
 
-appear_boss_time = 5
+appear_boss_time = 1
 
 class Boss:
 	SIZE = 100
@@ -36,21 +36,22 @@ class Boss:
 		#print(appear_boss_time)
 		if appear_boss_time <0:
 			self.boss_time += gfw.delta_time
-			#print(self.boss_time)
 			self.fidx = int(self.boss_time) % 2
+
 			self.y += self.dy * gfw.delta_time
 			if self.y < 700 :
 				self.dy = 0
 				self.x += self.dx * gfw.delta_time
+
 				if self.x < 250 or self.x> 500:
 					self.dx*=-1
 
-		if self.boss_laser_time >= Boss.LASER_INTERVAL:
-			self.fire()
+			if self.boss_laser_time >= Boss.LASER_INTERVAL:
+				self.fire()
 
 	def fire(self):
 		self.boss_laser_time = 0
-		boss_bullet = Boss_Bullet(self.x, self.y, 100)
+		boss_bullet = Boss_Bullet(self.x, self.y, 100, 500)
 		gfw.world.add(gfw.layer.boss_bullet, boss_bullet)
 
 
