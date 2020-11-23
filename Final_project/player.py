@@ -4,7 +4,7 @@ import gfw
 from gobj import *
 from bullet import *
 
-MAX_LIFE = 10
+MAX_LIFE = 3
 
 class Player:
     KEY_MAP = {
@@ -14,6 +14,7 @@ class Player:
         (SDL_KEYUP, SDLK_RIGHT):   -1,
     }
     KEYDOWN_SPACE = (SDL_KEYDOWN, SDLK_SPACE)
+
     LASER_INTERVAL = 0.1
 
     #constructor
@@ -33,6 +34,9 @@ class Player:
         self.life = MAX_LIFE
         self.hp_1 = gfw.image.load(RES_DIR + '/hp_heart_01.png')
         self.hp_2 = gfw.image.load(RES_DIR + '/hp_heart_02.png')
+
+        self.damage_time = 0
+        self.damage = gfw.image.load(RES_DIR + '/damage.png')
         
     def fire(self):
         self.laser_time = 0
@@ -64,6 +68,7 @@ class Player:
         
         if self.x < self.minx: self.x = self.minx
         elif self.x > self.maxx: self.x = self.maxx
+        
         if self.laser_time >= Player.LASER_INTERVAL:
             self.fire()
             
