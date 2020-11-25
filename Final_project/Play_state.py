@@ -78,8 +78,9 @@ def check_money(m):
 
 def check_item(i):
     if gobj.collides_box(player, i):
+        LaserBullet.Shoot_state = 1
         i.remove()
-        return
+        
 
 def update():
     global boss_ox
