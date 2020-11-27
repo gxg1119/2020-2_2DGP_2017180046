@@ -29,8 +29,12 @@ class Item:
 		x += dx * ITEM_MOVE_PPS * gfw.delta_time
 		y += dy * ITEM_MOVE_PPS * gfw.delta_time
 
-		#hw = self.image.w //2
-		#x = clamp(hw, x, get_canvas_width() - hw)
+		if self.choose == 1:
+			hw = self.Powershot_image.w //2
+			x = clamp(hw, x, get_canvas_width() - hw)
+		else:
+			hw = self.Dualshot_image.w //2
+			x = clamp(hw, x, get_canvas_width() - hw)
 
 		self.x, self.y = x, y
 
