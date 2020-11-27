@@ -9,7 +9,7 @@ class Boss_Bullet:
         self.x, self.y = x, y
         self.dx, self.dy = direction, speed
         self.image = gfw.image.load(RES_DIR + '/boss_bullet.png')
-        self.side = random.randint(1, 4)
+        self.side = random.randint(1, 5)
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -25,7 +25,8 @@ class Boss_Bullet:
         if self.side == 1: self.dx = -100
         elif self.side == 2: self.dx = 100
         elif self.side == 3: self.dx = 200
-        else: self.dx = -200
+        elif self.side == 4: self.dx = -200
+        else : self.dx = 0
 
         if self.y > get_canvas_height() + Boss_Bullet.SIZE:
             self.remove()

@@ -24,7 +24,7 @@ class Enemy:
         self.src_height = self.image.h
         self.time = 0
 
-        self.item_gen = random.randint(1, 15)
+        self.item_gen = random.randint(1, 2)
         
     def draw(self):
         sx = self.fidx * self.src_width

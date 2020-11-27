@@ -79,6 +79,7 @@ def check_money(m):
 def check_item(i):
     if gobj.collides_box(player, i):
         LaserBullet.Shoot_state = 1
+        LaserBullet.Dualshoot_time = 20
         i.remove()
         
 
