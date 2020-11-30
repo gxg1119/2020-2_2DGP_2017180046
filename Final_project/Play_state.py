@@ -7,7 +7,7 @@ import gobj
 import enemy_gen
 import life_gauge
 import boss
-from item import Item
+from item import Item, Dual
 from background import VertScrollBackground
 import random
 
@@ -39,6 +39,10 @@ def enter():
     bg=VertScrollBackground('/map_01.png')
     bg.speed = 100
     gfw.world.add(gfw.layer.bg,bg)
+
+    global music_bg, wav_item, wave_index
+    music_bg = load_music(gobj.RES_DIR +'/bg_music.mp3')
+    music_bg.repeat_play()
     
 def check_enemy(e):
     if gobj.collides_box(player, e):
@@ -80,11 +84,12 @@ def check_boss(boss):
 
 def check_item(i):
     if gobj.collides_box(player, i):
-        print("dual_shoot")
-        LaserBullet.Shoot_state = 1
-        LaserBullet.Dualshoot_time = 20
+        #print("dual_shoot")
+        #if item == i[0]:
+        #print('Dual')
+        #LaserBullet.Shoot_state = 1
+        #LaserBullet.Dualshoot_time = 20
         i.remove()
-        
 
 def update():
     global boss_ox
