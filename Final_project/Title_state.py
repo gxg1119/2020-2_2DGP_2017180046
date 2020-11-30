@@ -1,7 +1,7 @@
 import gfw
 from pico2d import *
 from gobj import *
-import Play_state
+import character_select_state
 
 def enter():
     global image, game_start_box, game_end_box
@@ -30,7 +30,7 @@ def handle_event(e):
     elif (e.type, e.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
         if(e.x >= 50 and e.x<=350 and e.y <= 925 and e.y >= 775):
             botton_sd.play()
-            gfw.push(Play_state)
+            gfw.push(character_select_state)
         elif(e.x >= 400 and e.x<=700 and e.y <= 925 and e.y >= 775):
             botton_sd.play()
             gfw.quit()
