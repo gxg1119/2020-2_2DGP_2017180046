@@ -44,9 +44,7 @@ class Enemy:
             
     def remove(self):
         gfw.world.remove(self)
-        money.Money.generate(self)
-        if self.item_gen == 1:
-            item.Item.generate(self)
+        item.Item.generate(self)
         #print(self.money)
         
     def decrease_life(self, amount):

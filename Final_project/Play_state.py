@@ -7,7 +7,9 @@ import gobj
 import enemy_gen
 import life_gauge
 import boss
+from item import Item
 from background import VertScrollBackground
+import random
 
 canvas_width = 750
 canvas_height = 1000
@@ -70,14 +72,15 @@ def check_boss(boss):
             if player_dead:
                 print("Dead")
 
-def check_money(m):
-    if gobj.collides_box(player, m):
-        score.score += 100
-        m.remove()
-        return
+#def check_money(m):
+#    if gobj.collides_box(player, m):
+#        score.score += 100
+#        m.remove()
+#        return
 
 def check_item(i):
     if gobj.collides_box(player, i):
+        print("dual_shoot")
         LaserBullet.Shoot_state = 1
         LaserBullet.Dualshoot_time = 20
         i.remove()
@@ -97,8 +100,8 @@ def update():
     
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
-    for m in gfw.world.objects_at(gfw.layer.money):
-        check_money(m)
+#    for m in gfw.world.objects_at(gfw.layer.money):
+#        check_money(m)
     for i in gfw.world.objects_at(gfw.layer.item):
         check_item(i)
     for e_b in gfw.world.objects_at(gfw.layer.boss):

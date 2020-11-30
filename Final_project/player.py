@@ -76,6 +76,8 @@ class Player:
         pair = (e.type, e.key)
         if(pair in Player.KEY_MAP):
             self.dx += Player.KEY_MAP[pair]
+        if pair == (SDL_KEYDOWN, SDLK_SPACE):
+            print("space")
 
     def get_bb(self):
         hw = 30

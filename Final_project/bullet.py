@@ -1,10 +1,10 @@
 from pico2d import *
 import gfw
 from gobj import *
-from item import Item
+from item import Item, Dual
 
 class LaserBullet:
-    Dualshoot_time = 20
+    Dualshoot_time = 5
     Shoot_state = 0
 
     SIZE = 50
@@ -24,7 +24,7 @@ class LaserBullet:
 
     def update(self):
         self.y += self.dy * gfw.delta_time
-        print(LaserBullet.Dualshoot_time)
+        #print(LaserBullet.Dualshoot_time)
         if self.y > get_canvas_height() + LaserBullet.SIZE:
             self.remove()
 
