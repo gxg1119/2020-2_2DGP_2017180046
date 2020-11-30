@@ -40,10 +40,11 @@ def enter():
     bg.speed = 100
     gfw.world.add(gfw.layer.bg,bg)
 
-    global music_bg, wav_item, wave_index
+    global music_bg, wav_item, wav_mon_die
     music_bg = load_music(gobj.RES_DIR +'/bg_music.mp3')
+    wav_mon_die = load_wav(gobj.RES_DIR +'/enemy_die.wav')
     music_bg.repeat_play()
-    
+
 def check_enemy(e):
     if gobj.collides_box(player, e):
         e.remove()
@@ -57,6 +58,7 @@ def check_enemy(e):
             enemy_dead = e.decrease_life(b.power)
             if enemy_dead:
                 score.score += e.level * 100
+                wav_mon_die.play()
                 e.remove()
             b.remove()
 
