@@ -4,7 +4,7 @@ from gobj import *
 from boss_bullet import *
 import life_gauge
 
-appear_boss_time = 100
+appear_boss_time = 5
 
 class Boss:
 	SIZE = 100
@@ -12,7 +12,7 @@ class Boss:
 
 	def __init__(self):
 		self.x, self.y = 375, get_canvas_height()+300
-		self.dx, self.dy = 0, 0
+		self.dx, self.dy = 50, -50
 		self.image = gfw.image.load(RES_DIR + '/boss.png')
 		self.src_width = self.image.w // 2
 		self.src_height = self.image.h
@@ -33,7 +33,6 @@ class Boss:
 		global appear_boss_time
 		appear_boss_time -= gfw.delta_time
 		self.boss_laser_time += gfw.delta_time
-		#print(appear_boss_time)
 		if appear_boss_time <0:
 			self.boss_time += gfw.delta_time
 			self.fidx = int(self.boss_time) % 2
@@ -54,6 +53,9 @@ class Boss:
 		boss_bullet = Boss_Bullet(self.x, self.y, 100, 500)
 		gfw.world.add(gfw.layer.boss_bullet, boss_bullet)
 
+	def generate(self):
+		boss = Boss()
+		gfw.world.add(gfw.layer.boss, boss)
 
 	def decrease_life(self, amount):
 		self.life -= amount

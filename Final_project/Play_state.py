@@ -15,17 +15,13 @@ canvas_width = 750
 canvas_height = 1000
 
 boss_ox = True
+boss_ap = 1
 
 def enter():
-    gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'money', 'item'])
+    gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'item'])
     global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)
-
-    global boss
-    boss = boss.Boss()
-    boss.dx, boss.dy = 20, -50
-    gfw.world.add(gfw.layer.boss, boss)
 
     global score
     score = Score(canvas_width - 20, canvas_height - 50)
@@ -42,7 +38,6 @@ def enter():
 
     global power_item
     power_item = gfw.image.load(gobj.RES_DIR + '/powershot.png')
-    #gfw.world.add(gfw.layer.item, power_item)
 
     global music_bg, wav_item, wav_mon_die, player_voice
     music_bg = load_music(gobj.RES_DIR +'/bg_music.mp3')
@@ -73,7 +68,7 @@ def check_boss(boss):
         if gobj.collides_box(b, boss):
             boss_dead = boss.decrease_life(b.Power)
             if boss_dead:
-                score.score += 10000
+                score.score += 1000000
                 boss.remove()
             b.remove()
 
@@ -83,12 +78,6 @@ def check_boss(boss):
             player_dead = player.decrease_life()
             if player_dead:
                 print("Dead")
-
-#def check_money(m):
-#    if gobj.collides_box(player, m):
-#        score.score += 100
-#        m.remove()
-#        return
 
 def check_item(i):
     if gobj.collides_box(player, i):
@@ -101,7 +90,7 @@ def check_item(i):
         i.remove()
 
 def update():
-    global boss_ox
+    global boss_ox, boss_ap
     gfw.world.update()
 
     if boss_ox == True:
@@ -109,13 +98,14 @@ def update():
        
     level = enemy_gen.enemy_level()
 
-    if level > 5:
+    if level > 1:
         boss_ox = False
+    if boss_ap > 0 :
+        boss.Boss().generate()
+        boss_ap -= 1
     
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
-#    for m in gfw.world.objects_at(gfw.layer.money):
-#        check_money(m)
     for i in gfw.world.objects_at(gfw.layer.item):
         check_item(i)
     for e_b in gfw.world.objects_at(gfw.layer.boss):
