@@ -22,7 +22,7 @@ class LaserBullet:
             self.image.draw(self.x-50, self.y + 75)
             self.image.draw(self.x+50, self.y + 75)
         elif LaserBullet.Shoot_state == 2:
-            self.pwimage.draw(self.x, self.y + 150)
+            self.pwimage.draw(self.x, self.y + 150, 510, 744)
         else:
             self.image.draw(self.x, self.y + 75)
 
@@ -33,11 +33,13 @@ class LaserBullet:
             self.remove()
 
         if LaserBullet.Shoot_state == 2:
+            LaserBullet.SIZE = 200
             LaserBullet.powershoot_time += gfw.delta_time
             if LaserBullet.powershoot_time > 20 :
                 LaserBullet.powershoot_time = 0
                 LaserBullet.Shoot_state = 0
                 LaserBullet.Power = 50
+                LaserBullet.SIZE = 50
 
         if LaserBullet.Shoot_state == 1:
             LaserBullet.Dualshoot_time -= gfw.delta_time
