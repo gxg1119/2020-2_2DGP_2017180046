@@ -10,12 +10,10 @@ class LaserBullet:
     Power = 50
     SIZE = 50
     def __init__(self, x, y, speed):
-        # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.x, self.y = x, y
         self.dy = speed
         self.image = gfw.image.load(RES_DIR + '/bullet_01.png')
         self.pwimage = gfw.image.load(RES_DIR + '/bullet_powershot.png')
-        #self.power = 50
 
     def draw(self):
         if LaserBullet.Shoot_state == 1:
@@ -46,7 +44,6 @@ class LaserBullet:
             if LaserBullet.Dualshoot_time < 0 :
                 LaserBullet.Dualshoot_time = 20
                 LaserBullet.Shoot_state = 0
-
 
     def remove(self):
         gfw.world.remove(self)

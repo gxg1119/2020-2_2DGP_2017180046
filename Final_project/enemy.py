@@ -3,16 +3,12 @@ import gfw
 from gobj import *
 import random
 import life_gauge
-import money
 import item
 
 
 class Enemy:
-    enemies = []
-    trashcan = []
     SIZE = 50
     def __init__(self, x, speed, level):
-        # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.x, self.y = x, get_canvas_height() + Enemy.SIZE
         self.dx, self.dy = 0, speed
         self.level = level
@@ -36,7 +32,6 @@ class Enemy:
     def update(self):
         self.time += gfw.delta_time
         self.fidx = int(self.time * 10) % 2
-        # self.x += self.dx
         self.y += self.dy * gfw.delta_time * 200
         
         if self.y < -Enemy.SIZE:
@@ -46,7 +41,6 @@ class Enemy:
         gfw.world.remove(self)
         item.Item.generate(self)
         item.Dual.generate(self)
-        #print(self.money)
         
     def decrease_life(self, amount):
         self.life -= amount

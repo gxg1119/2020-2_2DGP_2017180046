@@ -6,7 +6,6 @@ class Score:
     bullets = []
     trashcan = []
     def __init__(self, right, y):
-        # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.right, self.y = right, y
         self.image = gfw.image.load(RES_DIR + '/number_font.png')
         self.digit_width = self.image.w // 10
@@ -22,7 +21,6 @@ class Score:
         while score > 0:
             digit = score % 10
             sx = digit * self.digit_width
-            # print(type(sx), type(digit), type(self.digit_width))
             x -= self.digit_width
             self.image.clip_draw(sx, 0, self.digit_width, self.image.h, x, self.y)
             score //= 10
