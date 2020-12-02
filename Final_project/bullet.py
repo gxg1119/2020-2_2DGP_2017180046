@@ -9,20 +9,27 @@ class LaserBullet:
     Shoot_state = 0
     Power = 50
     SIZE = 50
+    bullet_type = 0
     def __init__(self, x, y, speed):
         self.x, self.y = x, y
         self.dy = speed
-        self.image = gfw.image.load(RES_DIR + '/bullet_01.png')
+        self.b1image = gfw.image.load(RES_DIR + '/bullet_01.png')
+        self.b2image = gfw.image.load(RES_DIR + '/bullet_02.png')
         self.pwimage = gfw.image.load(RES_DIR + '/bullet_powershot.png')
 
     def draw(self):
         if LaserBullet.Shoot_state == 1:
-            self.image.draw(self.x-50, self.y + 75)
-            self.image.draw(self.x+50, self.y + 75)
+            if LaserBullet.bullet_type == 0 :
+                self.b1image.draw(self.x-50, self.y + 75)
+                self.b1image.draw(self.x+50, self.y + 75)
+            else:
+                self.b2image.draw(self.x-50, self.y + 75)
+                self.b2image.draw(self.x+50, self.y + 75)
         elif LaserBullet.Shoot_state == 2:
             self.pwimage.draw(self.x, self.y + 150, 380, 558)
         else:
-            self.image.draw(self.x, self.y + 75)
+            if LaserBullet.bullet_type == 0 : self.b1image.draw(self.x, self.y + 75)
+            else : self.b2image.draw(self.x, self.y + 75)
 
     def update(self):
         self.y += self.dy * gfw.delta_time

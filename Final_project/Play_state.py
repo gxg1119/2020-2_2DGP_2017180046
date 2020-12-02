@@ -21,6 +21,7 @@ def enter():
     gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'item'])
     global player
     player = Player()
+    Player.player_type = 2
     gfw.world.add(gfw.layer.player, player)
 
     global dis_score, score
@@ -41,10 +42,13 @@ def enter():
     global power_item
     power_item = gfw.image.load(gobj.RES_DIR + '/powershot.png')
 
-    global music_bg, wav_item, wav_mon_die, player_voice, get_money, get_item
+    global music_bg, wav_item, wav_mon_die, player_voice, wav_boss_appear, wav_boss_dead, wav_siren, get_money, get_item
     music_bg = load_music(gobj.RES_DIR +'/bg_music.mp3')
     wav_mon_die = load_wav(gobj.RES_DIR +'/enemy_die.wav')
     player_voice = load_wav(gobj.RES_DIR +'/go.wav')
+    wav_siren = load_wav(gobj.RES_DIR +'/siren.wav')
+    wav_boss_appear = load_wav(gobj.RES_DIR +'/go.wav')
+    wav_boss_dead = load_wav(gobj.RES_DIR +'/boss_dead.wav')
     get_money = load_wav(gobj.RES_DIR +'/get_coin.wav')
     get_item = load_wav(gobj.RES_DIR +'/get_item.wav')
     music_bg.repeat_play()
@@ -72,6 +76,7 @@ def check_boss(boss):
         if gobj.collides_box(b, boss):
             boss_dead = boss.decrease_life(b.Power)
             if boss_dead:
+                wav_boss_dead.play()
                 score.score += 1000000
                 boss.remove()
             b.remove()
@@ -110,6 +115,9 @@ def update():
 
     else :
         if boss_ap > 0 :
+            #for i in [0,1,2,3,4]:
+                #wav_siren.play(i)
+            wav_boss_appear.play()
             boss.Boss().generate()
             boss_ap -= 1
 

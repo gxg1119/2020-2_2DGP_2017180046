@@ -7,6 +7,8 @@ from bullet import *
 MAX_LIFE = 3
 
 class Player:
+    player_type = 0
+
     KEY_MAP = {
         (SDL_KEYDOWN, SDLK_LEFT):  -1,
         (SDL_KEYDOWN, SDLK_RIGHT): 1,
@@ -22,8 +24,9 @@ class Player:
         self.x, self.y = 375, 150
         self.dx = 0
         self.speed = 750
-        self.image = gfw.image.load(RES_DIR + '/Player_01.png')
-        half = self.image.w
+        self.p1image = gfw.image.load(RES_DIR + '/Player_01.png')
+        self.p2image = gfw.image.load(RES_DIR + '/Player_02.png')
+        #half = self.image.w
         self.minx = 75
         self.maxx = 675
         self.fidx = 0
@@ -40,9 +43,12 @@ class Player:
 
         self.powershoot_cnt = 9
         self.powershoot_wav = load_wav(RES_DIR +'/power_shot.wav')
+
     def fire(self):
         self.laser_time = 0
         bullet = LaserBullet(self.x, self.y, 1000)
+        if Player.player_type == 0 : LaserBullet.bullet_type = 0
+        else : LaserBullet.bullet_type = 1
         gfw.world.add(gfw.layer.bullet, bullet)
 
     def decrease_life(self):
@@ -51,8 +57,10 @@ class Player:
         return self.life <= 0
         
     def draw(self):
-        self.image.clip_draw(self.fidx*150, 0, 150, 150, self.x, self.y)
-        
+        if Player.player_type == 0 :
+            self.p1image.clip_draw(self.fidx*150, 0, 150, 150, self.x, self.y)
+        else : self.p2image.clip_draw(self.fidx*150, 0, 150, 150, self.x, self.y)
+
         global MAX_LIFE
         self.hx, self.hy = get_canvas_width() // 2 + 45, 50
         for i in range(MAX_LIFE):
