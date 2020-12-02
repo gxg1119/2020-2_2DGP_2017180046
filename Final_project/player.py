@@ -80,10 +80,11 @@ class Player:
             self.dx += Player.KEY_MAP[pair]
         if pair == (SDL_KEYDOWN, SDLK_SPACE):
             self.powershoot_cnt -= 1
-            LaserBullet.Shoot_state = 2
-            LaserBullet.Power = 500
-            print(self.powershoot_cnt)
-            print(LaserBullet.Power)
+            if self.powershoot_cnt > 0:
+                LaserBullet.Shoot_state = 2
+                LaserBullet.Power = 500
+                print(self.powershoot_cnt)
+                print(LaserBullet.Power)
             #LaserBullet.Dualshoot_time = 20
 
     def get_bb(self):

@@ -5,7 +5,7 @@ from item import Item, Dual
 
 class LaserBullet:
     Dualshoot_time = 5
-    powershoot_time = 5
+    powershoot_time = 0
     Shoot_state = 0
     Power = 50
     SIZE = 50
@@ -18,25 +18,24 @@ class LaserBullet:
         #self.power = 50
 
     def draw(self):
-        if LaserBullet.Shoot_state == 1 and LaserBullet.Dualshoot_time > 0:
+        if LaserBullet.Shoot_state == 1:
             self.image.draw(self.x-50, self.y + 75)
             self.image.draw(self.x+50, self.y + 75)
-        elif LaserBullet.Shoot_state == 2 and LaserBullet.Dualshoot_time > 0:
+        elif LaserBullet.Shoot_state == 2:
             self.pwimage.draw(self.x, self.y + 150)
         else:
             self.image.draw(self.x, self.y + 75)
 
     def update(self):
         self.y += self.dy * gfw.delta_time
-        print(LaserBullet.Power)
+        print(LaserBullet.powershoot_time)
         if self.y > get_canvas_height() + LaserBullet.SIZE:
             self.remove()
-            
+
         if LaserBullet.Shoot_state == 2:
-            LaserBullet.powershoot_time -= gfw.delta_time
-            print(LaserBullet.Power)
-            if LaserBullet.powershoot_time < 0 :
-                LaserBullet.powershoot_time = 20
+            LaserBullet.powershoot_time += gfw.delta_time
+            if LaserBullet.powershoot_time > 20 :
+                LaserBullet.powershoot_time = 0
                 LaserBullet.Shoot_state = 0
                 LaserBullet.Power = 50
 

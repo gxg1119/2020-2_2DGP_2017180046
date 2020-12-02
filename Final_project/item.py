@@ -51,6 +51,6 @@ class Dual(Item):
 		self.init(x, y, dx, dy, '/dualshot.png')
 
 	def generate(self):
-		if random.randrange(10) == 0:
+		if random.randrange(2) == 0:
 			item = Dual(self.x, self.y, self.dx, self.dy)
 			gfw.world.add(gfw.layer.item, item)

@@ -40,10 +40,16 @@ def enter():
     bg.speed = 100
     gfw.world.add(gfw.layer.bg,bg)
 
-    global music_bg, wav_item, wav_mon_die
+    global power_item
+    power_item = gfw.image.load(gobj.RES_DIR + '/powershot.png')
+    #gfw.world.add(gfw.layer.item, power_item)
+
+    global music_bg, wav_item, wav_mon_die, player_voice
     music_bg = load_music(gobj.RES_DIR +'/bg_music.mp3')
     wav_mon_die = load_wav(gobj.RES_DIR +'/enemy_die.wav')
+    player_voice = load_wav(gobj.RES_DIR +'/go.wav')
     music_bg.repeat_play()
+    player_voice.play()
 
 def check_enemy(e):
     if gobj.collides_box(player, e):
@@ -86,11 +92,12 @@ def check_boss(boss):
 
 def check_item(i):
     if gobj.collides_box(player, i):
-        if i.item_val == 1:
-            score.score += 100
+        #if i.item_val == 1:
+        score.score += 100
         if i.item_val == 2:
-            LaserBullet.Shoot_state = 1
-            LaserBullet.Dualshoot_time = 20
+            if LaserBullet.powershoot_time == 0: 
+                LaserBullet.Shoot_state = 1
+                LaserBullet.Dualshoot_time = 20
         i.remove()
 
 def update():
@@ -118,7 +125,8 @@ def draw():
     gfw.world.draw()
     gobj.draw_collision_box()
     font.draw(20, canvas_height - 45, 'Wave: %d' % enemy_gen.wave_index)
-
+    power_item.draw(canvas_width - 100, 50, 50, 50)
+    font.draw(canvas_width - 70, 50, ': %d' % player.powershoot_cnt,(255,255,255))
 def handle_event(e):
     global player
     if e.type == SDL_QUIT:
