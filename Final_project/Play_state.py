@@ -53,9 +53,9 @@ def check_enemy(e):
             print('Dead')
         
 
-    for b in gfw.world.objects_at(gfw.layer.bullet):
+    for b in gfw.world.objects_at(gfw.layer.bullet):     
         if gobj.collides_box(b, e):
-            enemy_dead = e.decrease_life(b.power)
+            enemy_dead = e.decrease_life(b.Power)
             if enemy_dead:
                 score.score += e.level * 100
                 wav_mon_die.play()
@@ -65,7 +65,7 @@ def check_enemy(e):
 def check_boss(boss):
     for b in gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, boss):
-            boss_dead = boss.decrease_life(b.power)
+            boss_dead = boss.decrease_life(b.Power)
             if boss_dead:
                 score.score += 10000
                 boss.remove()
@@ -86,11 +86,11 @@ def check_boss(boss):
 
 def check_item(i):
     if gobj.collides_box(player, i):
-        #print("dual_shoot")
-        #if item == i[0]:
-        #print('Dual')
-        #LaserBullet.Shoot_state = 1
-        #LaserBullet.Dualshoot_time = 20
+        if i.item_val == 1:
+            score.score += 100
+        if i.item_val == 2:
+            LaserBullet.Shoot_state = 1
+            LaserBullet.Dualshoot_time = 20
         i.remove()
 
 def update():
@@ -123,9 +123,9 @@ def handle_event(e):
     global player
     if e.type == SDL_QUIT:
         gfw.quit()
-    elif e.type == SDL_KEYDOWN:
-        if e.key == SDLK_ESCAPE:
-            gfw.pop()
+    #elif e.type == SDL_KEYDOWN:
+    #    if e.key == SDLK_ESCAPE:
+    #        gfw.pop()
 
     player.handle_event(e)
 

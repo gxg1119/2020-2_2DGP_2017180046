@@ -37,6 +37,8 @@ class Player:
 
         self.damage_time = 0
         self.damage = gfw.image.load(RES_DIR + '/damage.png')
+
+        self.powershoot_cnt = 9
         
     def fire(self):
         self.laser_time = 0
@@ -77,7 +79,12 @@ class Player:
         if(pair in Player.KEY_MAP):
             self.dx += Player.KEY_MAP[pair]
         if pair == (SDL_KEYDOWN, SDLK_SPACE):
-            print("space")
+            self.powershoot_cnt -= 1
+            LaserBullet.Shoot_state = 2
+            LaserBullet.Power = 500
+            print(self.powershoot_cnt)
+            print(LaserBullet.Power)
+            #LaserBullet.Dualshoot_time = 20
 
     def get_bb(self):
         hw = 30

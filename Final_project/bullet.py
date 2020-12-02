@@ -5,35 +5,47 @@ from item import Item, Dual
 
 class LaserBullet:
     Dualshoot_time = 5
+    powershoot_time = 5
     Shoot_state = 0
-
+    Power = 50
     SIZE = 50
     def __init__(self, x, y, speed):
         # self.pos = get_canvas_width() // 2, get_canvas_height() // 2
         self.x, self.y = x, y
         self.dy = speed
         self.image = gfw.image.load(RES_DIR + '/bullet_01.png')
-        self.power = 50
+        self.pwimage = gfw.image.load(RES_DIR + '/bullet_powershot.png')
+        #self.power = 50
 
     def draw(self):
-        if LaserBullet.Shoot_state and LaserBullet.Dualshoot_time > 0:
+        if LaserBullet.Shoot_state == 1 and LaserBullet.Dualshoot_time > 0:
             self.image.draw(self.x-50, self.y + 75)
             self.image.draw(self.x+50, self.y + 75)
+        elif LaserBullet.Shoot_state == 2 and LaserBullet.Dualshoot_time > 0:
+            self.pwimage.draw(self.x, self.y + 150)
         else:
             self.image.draw(self.x, self.y + 75)
 
     def update(self):
         self.y += self.dy * gfw.delta_time
-        #print(LaserBullet.Dualshoot_time)
+        print(LaserBullet.Power)
         if self.y > get_canvas_height() + LaserBullet.SIZE:
             self.remove()
+            
+        if LaserBullet.Shoot_state == 2:
+            LaserBullet.powershoot_time -= gfw.delta_time
+            print(LaserBullet.Power)
+            if LaserBullet.powershoot_time < 0 :
+                LaserBullet.powershoot_time = 20
+                LaserBullet.Shoot_state = 0
+                LaserBullet.Power = 50
 
         if LaserBullet.Shoot_state == 1:
             LaserBullet.Dualshoot_time -= gfw.delta_time
-            # LaserBullet.Dualshoot_time = 3
             if LaserBullet.Dualshoot_time < 0 :
                 LaserBullet.Dualshoot_time = 20
                 LaserBullet.Shoot_state = 0
+
 
     def remove(self):
         gfw.world.remove(self)
