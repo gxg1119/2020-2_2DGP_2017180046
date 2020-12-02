@@ -62,7 +62,6 @@ class Player:
 
     def update(self):
         self.x += self.dx * self.speed * gfw.delta_time
-       # self.fidx = (self.fidx+1)%8
         self.player_time += gfw.delta_time
         self.laser_time += gfw.delta_time
         frame = self.player_time * 10
@@ -83,8 +82,6 @@ class Player:
             if self.powershoot_cnt > 0:
                 LaserBullet.Shoot_state = 2
                 LaserBullet.Power = 500
-                print(self.powershoot_cnt)
-                print(LaserBullet.Power)
             #LaserBullet.Dualshoot_time = 20
 
     def get_bb(self):

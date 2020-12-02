@@ -3,6 +3,7 @@ import gfw
 from gobj import *
 from boss_bullet import *
 import life_gauge
+import item
 
 appear_boss_time = 5
 
@@ -11,12 +12,12 @@ class Boss:
 	LASER_INTERVAL = 0.5
 
 	def __init__(self):
-		self.x, self.y = 375, get_canvas_height()+300
+		self.x, self.y = 375, get_canvas_height() - 300
 		self.dx, self.dy = 50, -50
 		self.image = gfw.image.load(RES_DIR + '/boss.png')
 		self.src_width = self.image.w // 2
 		self.src_height = self.image.h
-		self.max_life = 10000
+		self.max_life = 1000
 		self.life = self.max_life
 		self.fidx = 0
 		self.boss_time = 0
@@ -66,6 +67,8 @@ class Boss:
 
 	def remove(self):
 		gfw.world.remove(self)
+		for i in range(30) :
+			item.Item.generate(self)
 
 	def get_bb(self):
 		hw = 200

@@ -12,9 +12,9 @@ class Item:
 
 	def init(self, x, y, dx, dy, imageName):
 		self.x, self.y = x, y
-		self.dx, self.dy = dx, -random.uniform(2.0, 3.0)
+		self.dx, self.dy = dx, -random.uniform(1.5, 2.0)
 		self.image = gfw.image.load(RES_DIR + imageName)
-		self.x_direction = random.randint(1, 2)
+		self.x_direction = random.randrange(12)
 		
 
 	def draw(self):
@@ -31,8 +31,12 @@ class Item:
 
 		self.x, self.y = x, y
 
-		if self.x_direction == 1: self.dx = -1
-		else: self.dx = 1
+		if self.x_direction == 0 or self.x_direction == 1 : self.dx = 0.5
+		elif self.x_direction == 2 or self.x_direction == 3 : self.dx = -0.5
+		elif self.x_direction == 4 or self.x_direction == 5 : self.dx = 1
+		elif self.x_direction == 6 or self.x_direction == 7 : self.dx = -1
+		elif self.x_direction == 8 or self.x_direction == 9 : self.dx = 1.5
+		else: self.dx = -1.5
 
 	def generate(self):
 		item = Item(self.x, self.y, self.dx, self.dy)

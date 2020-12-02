@@ -23,7 +23,7 @@ def generate_wave():
         gfw.world.add(gfw.layer.enemy, e)
 
     wave_index += 1
-    next_wave = random.uniform(3, 4)
+    next_wave = 3
 
 def enemy_level():
     level = wave_index // 2

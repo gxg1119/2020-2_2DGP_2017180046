@@ -14,7 +14,7 @@ import random
 canvas_width = 750
 canvas_height = 1000
 
-boss_ox = True
+boss_ox = 0
 boss_ap = 1
 
 def enter():
@@ -23,8 +23,10 @@ def enter():
     player = Player()
     gfw.world.add(gfw.layer.player, player)
 
-    global score
-    score = Score(canvas_width - 20, canvas_height - 50)
+    global dis_score, score
+    dis_score = Score(canvas_width - 20, canvas_height - 50)
+    gfw.world.add(gfw.layer.ui, dis_score)
+    score = Score(canvas_width - 20, canvas_height - 100)
     gfw.world.add(gfw.layer.ui, score)
 
     global font
@@ -90,20 +92,23 @@ def check_item(i):
         i.remove()
 
 def update():
+    dis_score.score += 10
     global boss_ox, boss_ap
     gfw.world.update()
 
-    if boss_ox == True:
-        enemy_gen.update()
-       
     level = enemy_gen.enemy_level()
-
-    if level > 1:
-        boss_ox = False
-    if boss_ap > 0 :
-        boss.Boss().generate()
-        boss_ap -= 1
     
+    boss_ox += gfw.delta_time
+
+    if boss_ox < 12:
+        enemy_gen.update()
+        print(boss_ox)
+
+    else :
+        if boss_ap > 0 :
+            boss.Boss().generate()
+            boss_ap -= 1
+
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_enemy(e)
     for i in gfw.world.objects_at(gfw.layer.item):

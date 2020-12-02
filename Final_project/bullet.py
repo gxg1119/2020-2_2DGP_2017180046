@@ -20,18 +20,17 @@ class LaserBullet:
             self.image.draw(self.x-50, self.y + 75)
             self.image.draw(self.x+50, self.y + 75)
         elif LaserBullet.Shoot_state == 2:
-            self.pwimage.draw(self.x, self.y + 150, 510, 744)
+            self.pwimage.draw(self.x, self.y + 150, 380, 558)
         else:
             self.image.draw(self.x, self.y + 75)
 
     def update(self):
         self.y += self.dy * gfw.delta_time
-        print(LaserBullet.powershoot_time)
-        if self.y > get_canvas_height() + LaserBullet.SIZE:
+        if self.y > get_canvas_height():
             self.remove()
 
         if LaserBullet.Shoot_state == 2:
-            LaserBullet.SIZE = 200
+            LaserBullet.SIZE = 150
             LaserBullet.powershoot_time += gfw.delta_time
             if LaserBullet.powershoot_time > 20 :
                 LaserBullet.powershoot_time = 0
