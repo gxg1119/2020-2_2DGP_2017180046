@@ -39,7 +39,7 @@ class Player:
         self.damage = gfw.image.load(RES_DIR + '/damage.png')
 
         self.powershoot_cnt = 9
-        
+        self.powershoot_wav = load_wav(RES_DIR +'/power_shot.wav')
     def fire(self):
         self.laser_time = 0
         bullet = LaserBullet(self.x, self.y, 1000)
@@ -82,6 +82,7 @@ class Player:
             if self.powershoot_cnt > 0:
                 LaserBullet.Shoot_state = 2
                 LaserBullet.Power = 500
+                self.powershoot_wav.play()
             #LaserBullet.Dualshoot_time = 20
 
     def get_bb(self):

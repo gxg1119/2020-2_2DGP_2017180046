@@ -41,10 +41,12 @@ def enter():
     global power_item
     power_item = gfw.image.load(gobj.RES_DIR + '/powershot.png')
 
-    global music_bg, wav_item, wav_mon_die, player_voice
+    global music_bg, wav_item, wav_mon_die, player_voice, get_money, get_item
     music_bg = load_music(gobj.RES_DIR +'/bg_music.mp3')
     wav_mon_die = load_wav(gobj.RES_DIR +'/enemy_die.wav')
     player_voice = load_wav(gobj.RES_DIR +'/go.wav')
+    get_money = load_wav(gobj.RES_DIR +'/get_coin.wav')
+    get_item = load_wav(gobj.RES_DIR +'/get_item.wav')
     music_bg.repeat_play()
     player_voice.play()
 
@@ -83,9 +85,11 @@ def check_boss(boss):
 
 def check_item(i):
     if gobj.collides_box(player, i):
-        #if i.item_val == 1:
         score.score += 100
+        if i.item_val == 1:
+            get_money.play()
         if i.item_val == 2:
+            get_item.play()
             if LaserBullet.powershoot_time == 0: 
                 LaserBullet.Shoot_state = 1
                 LaserBullet.Dualshoot_time = 20
