@@ -21,7 +21,7 @@ def enter():
     gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'item'])
     global player
     player = Player()
-    Player.player_type = 2
+    Player.player_type = 1
     gfw.world.add(gfw.layer.player, player)
 
     global dis_score, score
