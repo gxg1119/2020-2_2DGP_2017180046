@@ -67,11 +67,13 @@ class Player:
             self.hp = self.hp_1 if i < self.life else self.hp_2
             self.hp.draw(self.hx, self.hy, 40, 40)
             self.hx -= self.hp.w + 10
+        self.damage.draw(self.x+40, self.y+50)
 
     def update(self):
         self.x += self.dx * self.speed * gfw.delta_time
         self.player_time += gfw.delta_time
         self.laser_time += gfw.delta_time
+        self.damage_time += gfw.delta_time
         frame = self.player_time * 10
         self.fidx=int(frame) % 8
         
@@ -80,18 +82,19 @@ class Player:
 
         if self.laser_time >= Player.LASER_INTERVAL:
             self.fire()
+        if self.damage_time >= Player.LASER_INTERVAL :
+            print("ddfa")
             
     def handle_event(self, e):
         pair = (e.type, e.key)
         if(pair in Player.KEY_MAP):
             self.dx += Player.KEY_MAP[pair]
         if pair == (SDL_KEYDOWN, SDLK_SPACE):
-            self.powershoot_cnt -= 1
             if self.powershoot_cnt > 0:
+                self.powershoot_cnt -= 1
                 LaserBullet.Shoot_state = 2
                 LaserBullet.Power = 500
                 self.powershoot_wav.play()
-            #LaserBullet.Dualshoot_time = 20
 
     def get_bb(self):
         hw = 30

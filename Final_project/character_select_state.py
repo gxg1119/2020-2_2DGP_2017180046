@@ -4,29 +4,36 @@ from gobj import *
 import Play_state
 
 def enter():
-	global boximage, chimage, chsimage, x, y, dy
-	boximage = gfw.image.load_image(RES_DIR + '/box_01.png')
-	chimage = gfw.image.load_image(RES_DIR + '/character_01.png')
-	chsimage = gfw.image.load_image(RES_DIR + '/select_character_01.png')
-	x, y = get_canvas_width() // 2, get_canvas_height() // 2
-	dy = 0.5
+    global image, x, y, dy, num , chimage1, chimage2
+    image = gfw.image.load_image(RES_DIR + '/sel.png')
+    chimage1 = gfw.image.load_image(RES_DIR + '/character_01.png')
+    chimage2 = gfw.image.load_image(RES_DIR + '/character_02.png')
+    x, y = get_canvas_width() // 2, get_canvas_height() // 2
+    num = 0
+
 def update():
-    global y, dy
-    print(y)
-    y += dy
-    if y < 490 or y > 510: dy *= -1
-
+    pass
 def draw():
-	global x, y
-	chimage.draw(x, y, 700, 700)
-	boximage.draw(get_canvas_width() // 2, 150,700,150)
-	chsimage.draw(get_canvas_width() // 2, 150)
+    global x, y, num
+    if num == 0 :
+        chimage1.draw(x, y)
+    else : 
+        chimage2.draw(x, y)
 
+    image.clip_draw(0 + 750 * num, 0, 750, 1000, x, y)
+    
 def handle_event(e):
+    global num
     if e.type == SDL_QUIT:
         gfw.quit()
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
         gfw.quit()
+    elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_LEFT):
+        num = 0
+        Play_state.charnum = 0
+    elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_RIGHT):
+        num = 1
+        Play_state.charnum = 1
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_RETURN):
             gfw.push(Play_state)
             

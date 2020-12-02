@@ -19,9 +19,9 @@ boss_ap = 1
 
 def enter():
     gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'item'])
-    global player
+    global player, charnum
     player = Player()
-    Player.player_type = 1
+    Player.player_type = charnum
     gfw.world.add(gfw.layer.player, player)
 
     global dis_score, score
@@ -111,7 +111,7 @@ def update():
 
     if boss_ox < 12:
         enemy_gen.update()
-        print(boss_ox)
+        #print(boss_ox)
 
     else :
         if boss_ap > 0 :
