@@ -32,7 +32,7 @@ def enter():
     gfw.world.add(gfw.layer.ui, score)
 
     global font
-    font = gfw.font.load(gobj.RES_DIR + '/barun.ttf', 40)
+    font = gfw.font.load(gobj.RES_DIR + '/BM.ttf', 40)
 
     life_gauge.load()
 
