@@ -4,10 +4,13 @@ from gobj import *
 import random
 import life_gauge
 import item
+import effect
 
 
 class Enemy:
     SIZE = 50
+    effect_ox = False
+
     def __init__(self, x, speed, level):
         self.x, self.y = x, get_canvas_height() + Enemy.SIZE
         self.dx, self.dy = 0, speed
@@ -20,6 +23,10 @@ class Enemy:
         self.src_height = self.image.h
         self.time = 0
 
+        self.effect_image = gfw.image.load(RES_DIR + '/effect.png')
+        self.effect_time = 0
+        self.efdx = 0
+
         self.item_gen = random.randint(1, 2)
         
     def draw(self):
@@ -31,9 +38,10 @@ class Enemy:
 
     def update(self):
         self.time += gfw.delta_time
+        self.effect_time += gfw.delta_time
         self.fidx = int(self.time * 10) % 2
+        self.efdx = int(self.effect_time * 20) % 8
         self.y += self.dy * gfw.delta_time * 200
-        
         if self.y < -Enemy.SIZE:
             self.remove()
             
@@ -41,7 +49,7 @@ class Enemy:
         gfw.world.remove(self)
         item.Item.generate(self)
         item.Dual.generate(self)
-        
+
     def decrease_life(self, amount):
         self.life -= amount
         return self.life <= 0

@@ -4,11 +4,13 @@ from player import Player
 from bullet import LaserBullet
 from score import Score
 import gobj
+from enemy import Enemy
 import enemy_gen
 import life_gauge
 import boss
 from item import Item, Dual
 from background import VertScrollBackground
+import effect
 import random
 
 canvas_width = 750
@@ -18,7 +20,7 @@ boss_ox = 0
 boss_ap = 1
 
 def enter():
-    gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet', 'ui', 'item'])
+    gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet','effect', 'ui', 'item'])
     global player, charnum
     player = Player()
     Player.player_type = charnum
@@ -68,6 +70,10 @@ def check_enemy(e):
         if gobj.collides_box(b, e):
             enemy_dead = e.decrease_life(b.Power)
             if enemy_dead:
+                effect.Effect(e.x,e.y).generate()
+                #effect = effect.Effect(e.x, e.y)
+                #gfw.world.add(gfw.layer.effect, effect)
+
                 score.score += e.level * 100
                 wav_mon_die.play()
                 e.remove()
@@ -103,7 +109,6 @@ def check_item(i):
         i.remove()
 
 def update():
-    print(player.dualshoot_cnt)
     dis_score.score += 10
     global boss_ox, boss_ap
     gfw.world.update()

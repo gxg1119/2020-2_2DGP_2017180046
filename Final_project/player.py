@@ -103,7 +103,7 @@ class Player:
                 LaserBullet.Power = 500
                 self.powershoot_wav.play()
         if pair == (SDL_KEYDOWN, SDLK_LSHIFT):
-            print(self.dualshoot_cnt)
+            #print(self.dualshoot_cnt)
             if self.dualshoot_cnt > 0 :
                 if LaserBullet.powershoot_time == 0 and self.dualshoot_cnt > 0: 
                     LaserBullet.Shoot_state = 1
