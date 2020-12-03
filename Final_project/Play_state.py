@@ -12,12 +12,15 @@ from item import Item, Dual
 from background import VertScrollBackground
 import effect
 import random
+import highscore
+import Gameover_state
+
 
 canvas_width = 750
 canvas_height = 1000
 charnum = 0
-boss_ox = 0
-boss_ap = 1
+
+START_GAME, END_GAME = range(2)
 
 def enter():
     gfw.world.init(['bg', 'enemy', 'boss', 'bullet', 'player','boss_bullet','effect', 'ui', 'item'])
@@ -57,36 +60,48 @@ def enter():
     music_bg.repeat_play()
     player_voice.play()
 
+    global state
+    state = START_GAME
+    enemy_gen.reset()
+
+    global boss_ox, boss_ap
+    boss_ox, boss_ap = 0, 1
+
+    global time, boss_die
+    time = 0
+    boss_die = False
+    highscore.load()
+
 def check_enemy(e):
+    global state
     if gobj.collides_box(player, e):
         e.remove()
         player.damage_ox = True
         player_dead = player.decrease_life()
         if player_dead:
-            print('Dead')
-        
+            state = END_GAME       
 
-    for b in gfw.world.objects_at(gfw.layer.bullet):     
+    for b in gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, e):
             enemy_dead = e.decrease_life(b.Power)
             if enemy_dead:
-                effect.Effect(e.x,e.y).generate()
-                #effect = effect.Effect(e.x, e.y)
-                #gfw.world.add(gfw.layer.effect, effect)
-
+                effect.Effect(e.x,e.y, 0).generate()
                 score.score += e.level * 100
                 wav_mon_die.play()
                 e.remove()
             b.remove()
 
 def check_boss(boss):
+    global boss_die
     for b in gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, boss):
             boss_dead = boss.decrease_life(b.Power)
             if boss_dead:
+                effect.Effect(boss.x, boss.y, 1).generate()
                 wav_boss_dead.play()
                 score.score += 1000000
                 boss.remove()
+                boss_die = True
             b.remove()
 
     for bb in gfw.world.objects_at(gfw.layer.boss_bullet):
@@ -94,7 +109,7 @@ def check_boss(boss):
             bb.remove()
             player_dead = player.decrease_life()
             if player_dead:
-                print("Dead")
+                state = END_GAME
 
 def check_item(i):
     global player
@@ -108,23 +123,36 @@ def check_item(i):
             get_item.play()
         i.remove()
 
+def endgame():
+    global state
+    state = END_GAME
+    music_bg.stop()
+    gfw.change(Gameover_state)
+    highscore.add(score.score)
+
 def update():
+    global state
+    if state != START_GAME:
+        endgame()
+        return
+
+    global time, boss_die
+    if boss_die :
+        time += gfw.delta_time
+    if time > 5:
+        state = END_GAME
+
     dis_score.score += 10
     global boss_ox, boss_ap
     gfw.world.update()
-
-    level = enemy_gen.enemy_level()
     
     boss_ox += gfw.delta_time
 
-    if boss_ox < 70:
+    if boss_ox < 10:
         enemy_gen.update()
-        #print(boss_ox)
 
     else :
         if boss_ap > 0 :
-            #for i in [0,1,2,3,4]:
-                #wav_siren.play(i)
             wav_boss_appear.play()
             boss.Boss().generate()
             boss_ap -= 1

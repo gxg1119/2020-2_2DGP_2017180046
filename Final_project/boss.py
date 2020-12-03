@@ -5,11 +5,11 @@ from boss_bullet import *
 import life_gauge
 import item
 
-appear_boss_time = 5
 
 class Boss:
 	SIZE = 100
 	LASER_INTERVAL = 0.5
+	appear_boss_time = 5
 
 	def __init__(self):
 		self.x, self.y = 375, get_canvas_height() - 300
@@ -31,10 +31,9 @@ class Boss:
 		life_gauge.draw(self.x, gy, 300, rate)
 
 	def update(self):
-		global appear_boss_time
-		appear_boss_time -= gfw.delta_time
+		Boss.appear_boss_time -= gfw.delta_time
 		self.boss_laser_time += gfw.delta_time
-		if appear_boss_time <0:
+		if Boss.appear_boss_time <0:
 			self.boss_time += gfw.delta_time
 			self.fidx = int(self.boss_time) % 2
 

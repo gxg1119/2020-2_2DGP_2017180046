@@ -7,6 +7,7 @@ GEN_X  = [75, 225, 375, 525, 675]
 next_wave = 0
 wave_index = 0
 
+
 def update():
     global next_wave
     next_wave -= gfw.delta_time
@@ -26,6 +27,10 @@ def generate_wave():
     next_wave = 3
 
 def enemy_level():
-    level = wave_index // 5
+    level = wave_index // 2
     level += 1
     return level
+
+def reset():
+    global wave_index, next_wave
+    wave_index, next_wave = 0, 0

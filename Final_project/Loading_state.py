@@ -14,7 +14,7 @@ def update():
     elapsed += gfw.delta_time
     print(elapsed)
     if elapsed > 1.0:
-        gfw.change(Title_state)
+        gfw.push(Title_state)
 
 def draw():
     image.draw(375, 500)

@@ -15,6 +15,7 @@ def enter():
     dx = 0
     dy = 0.5
     num = 0
+    Play_state.charnum = 0
     time = 0
 
 def update():
@@ -49,7 +50,7 @@ def handle_event(e):
         num = 1
         Play_state.charnum = 1
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_RETURN):
-            gfw.push(Play_state)
+            gfw.change(Play_state)
             
 def exit():
 	pass

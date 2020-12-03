@@ -38,6 +38,8 @@ class Item:
 		elif self.x_direction == 8 or self.x_direction == 9 : self.dx = 1.5
 		else: self.dx = -1.5
 
+		if self.y < -ITEM_SIZE: self.remove()
+		
 	def generate(self):
 		item = Item(self.x, self.y, self.dx, self.dy)
 		gfw.world.add(gfw.layer.item, item)
