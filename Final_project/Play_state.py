@@ -13,7 +13,7 @@ import random
 
 canvas_width = 750
 canvas_height = 1000
-
+charnum = 0
 boss_ox = 0
 boss_ap = 1
 
@@ -39,8 +39,9 @@ def enter():
     bg.speed = 100
     gfw.world.add(gfw.layer.bg,bg)
 
-    global power_item
+    global power_item, dual_item
     power_item = gfw.image.load(gobj.RES_DIR + '/powershot.png')
+    dual_item = gfw.image.load(gobj.RES_DIR + '/dualshot.png')
 
     global music_bg, wav_item, wav_mon_die, player_voice, wav_boss_appear, wav_boss_dead, wav_siren, get_money, get_item
     music_bg = load_music(gobj.RES_DIR +'/bg_music.mp3')
@@ -57,6 +58,7 @@ def enter():
 def check_enemy(e):
     if gobj.collides_box(player, e):
         e.remove()
+        player.damage_ox = True
         player_dead = player.decrease_life()
         if player_dead:
             print('Dead')
@@ -89,18 +91,19 @@ def check_boss(boss):
                 print("Dead")
 
 def check_item(i):
+    global player
     if gobj.collides_box(player, i):
         score.score += 100
         if i.item_val == 1:
             get_money.play()
         if i.item_val == 2:
+            if player.dualshoot_cnt < 10:
+                player.dualshoot_cnt += 1
             get_item.play()
-            if LaserBullet.powershoot_time == 0: 
-                LaserBullet.Shoot_state = 1
-                LaserBullet.Dualshoot_time = 20
         i.remove()
 
 def update():
+    print(player.dualshoot_cnt)
     dis_score.score += 10
     global boss_ox, boss_ap
     gfw.world.update()
@@ -109,7 +112,7 @@ def update():
     
     boss_ox += gfw.delta_time
 
-    if boss_ox < 12:
+    if boss_ox < 70:
         enemy_gen.update()
         #print(boss_ox)
 
@@ -133,7 +136,10 @@ def draw():
     gobj.draw_collision_box()
     font.draw(20, canvas_height - 45, 'Wave: %d' % enemy_gen.wave_index)
     power_item.draw(canvas_width - 100, 50, 50, 50)
+    dual_item.draw(canvas_width - 100, 105, 50, 50)
     font.draw(canvas_width - 70, 50, ': %d' % player.powershoot_cnt,(255,255,255))
+    font.draw(canvas_width - 70, 105, ': %d' % player.dualshoot_cnt,(255,255,255))
+
 def handle_event(e):
     global player
     if e.type == SDL_QUIT:
