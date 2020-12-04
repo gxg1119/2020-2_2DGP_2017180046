@@ -72,6 +72,8 @@ def enter():
     boss_die = False
     highscore.load()
 
+    Gameover_state.num = charnum
+    
 def check_enemy(e):
     global state
     if gobj.collides_box(player, e):
@@ -99,7 +101,7 @@ def check_boss(boss):
             if boss_dead:
                 effect.Effect(boss.x, boss.y, 1).generate()
                 wav_boss_dead.play()
-                score.score += 1000000
+                score.score += 50000
                 boss.remove()
                 boss_die = True
             b.remove()
@@ -139,7 +141,7 @@ def update():
     global time, boss_die
     if boss_die :
         time += gfw.delta_time
-    if time > 5:
+    if time > 8:
         state = END_GAME
 
     dis_score.score += 10
