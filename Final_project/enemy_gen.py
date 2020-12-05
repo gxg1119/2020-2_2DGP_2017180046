@@ -19,7 +19,7 @@ def generate_wave():
     
     for x in GEN_X:
         level = enemy_level()
-        speed = -(1 + wave_index/20)
+        speed = -(1 + wave_index//5)
         e = Enemy(x, speed, level)
         gfw.world.add(gfw.layer.enemy, e)
 
@@ -27,7 +27,7 @@ def generate_wave():
     next_wave = 3
 
 def enemy_level():
-    level = wave_index // 2
+    level = wave_index // 5
     level += 1
     return level
 

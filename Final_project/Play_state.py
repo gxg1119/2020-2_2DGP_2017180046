@@ -48,12 +48,14 @@ def enter():
     power_item = gfw.image.load(gobj.RES_DIR + '/powershot.png')
     dual_item = gfw.image.load(gobj.RES_DIR + '/dualshot.png')
 
-    global music_bg, wav_item, wav_mon_die, player_voice, wav_boss_appear, wav_boss_dead, wav_siren, get_money, get_item
+    global music_bg, music_bg2,wav_item, wav_mon_die, player_voice, player_hit_wav, wav_boss_appear, wav_boss_dead, wav_siren, get_money, get_item
     music_bg = load_music(gobj.RES_DIR +'/bg_music.mp3')
+    music_bg2 = load_music(gobj.RES_DIR +'/boss_stage_bg.mp3')
     wav_mon_die = load_wav(gobj.RES_DIR +'/enemy_die.wav')
     player_voice = load_wav(gobj.RES_DIR +'/go.wav')
+    player_hit_wav = load_wav(gobj.RES_DIR +'/hit.wav')
     wav_siren = load_wav(gobj.RES_DIR +'/siren.wav')
-    wav_boss_appear = load_wav(gobj.RES_DIR +'/go.wav')
+    wav_boss_appear = load_wav(gobj.RES_DIR +'/boss_appear.wav')
     wav_boss_dead = load_wav(gobj.RES_DIR +'/boss_dead.wav')
     get_money = load_wav(gobj.RES_DIR +'/get_coin.wav')
     get_item = load_wav(gobj.RES_DIR +'/get_item.wav')
@@ -73,13 +75,14 @@ def enter():
     highscore.load()
 
     Gameover_state.num = charnum
-    
+
 def check_enemy(e):
     global state
     if gobj.collides_box(player, e):
         e.remove()
         player.damage_ox = True
         player_dead = player.decrease_life()
+        player_hit_wav.play()
         if player_dead:
             state = END_GAME       
 
@@ -94,7 +97,7 @@ def check_enemy(e):
             b.remove()
 
 def check_boss(boss):
-    global boss_die
+    global boss_die, state
     for b in gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, boss):
             boss_dead = boss.decrease_life(b.Power)
@@ -110,8 +113,10 @@ def check_boss(boss):
         if gobj.collides_box(bb, player):
             bb.remove()
             player_dead = player.decrease_life()
+            player_hit_wav.play()
             if player_dead:
                 state = END_GAME
+        if boss_die : bb.remove()
 
 def check_item(i):
     global player
@@ -141,7 +146,7 @@ def update():
     global time, boss_die
     if boss_die :
         time += gfw.delta_time
-    if time > 8:
+    if time > 10:
         state = END_GAME
 
     dis_score.score += 10
@@ -150,12 +155,17 @@ def update():
     
     boss_ox += gfw.delta_time
 
-    if boss_ox < 10:
+    if boss_ox < 5:
         enemy_gen.update()
 
     else :
         if boss_ap > 0 :
-            wav_boss_appear.play()
+            #wav_siren.play(3)
+            music_bg.stop()
+            wav_siren.play(5)
+            #wav_boss_appear.set_volume(128)
+            print(wav_boss_appear.get_volume())
+            music_bg2.repeat_play()
             boss.Boss().generate()
             boss_ap -= 1
 

@@ -18,6 +18,9 @@ def enter():
     Play_state.charnum = 0
     time = 0
 
+    global botton_sd
+    botton_sd = load_wav(RES_DIR +'/button.wav')
+
 def update():
     global chy ,dx, dy, time
     time += gfw.delta_time * 3
@@ -46,9 +49,11 @@ def handle_event(e):
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_LEFT):
         num = 0
         Play_state.charnum = 0
+        botton_sd.play()
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_RIGHT):
         num = 1
         Play_state.charnum = 1
+        botton_sd.play()
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_RETURN):
             gfw.change(Play_state)
             

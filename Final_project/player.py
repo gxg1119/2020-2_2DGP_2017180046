@@ -10,14 +10,14 @@ class Player:
     player_type = 0
 
     KEY_MAP = {
-        (SDL_KEYDOWN, SDLK_LEFT):  -1,
-        (SDL_KEYDOWN, SDLK_RIGHT): 1,
-        (SDL_KEYUP, SDLK_LEFT): 1,
-        (SDL_KEYUP, SDLK_RIGHT):   -1,
+        (SDL_KEYDOWN, SDLK_LEFT):  -1.25,
+        (SDL_KEYDOWN, SDLK_RIGHT): 1.25,
+        (SDL_KEYUP, SDLK_LEFT): 1.25,
+        (SDL_KEYUP, SDLK_RIGHT):   -1.25,
     }
     KEYDOWN_SPACE = (SDL_KEYDOWN, SDLK_SPACE)
 
-    LASER_INTERVAL = 0.1
+    LASER_INTERVAL = 0.08
 
     #constructor
     def __init__(self):
@@ -55,7 +55,6 @@ class Player:
 
     def decrease_life(self):
         self.life -= 1
-        print(self.life)
         return self.life <= 0
         
     def draw(self):

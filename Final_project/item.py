@@ -12,9 +12,9 @@ class Item:
 
 	def init(self, x, y, dx, dy, imageName):
 		self.x, self.y = x, y
-		self.dx, self.dy = dx, -random.uniform(1.5, 2.0)
+		self.dx, self.dy = dx, -random.uniform(1.5, 2.5)
 		self.image = gfw.image.load(RES_DIR + imageName)
-		self.x_direction = random.randrange(12)
+		self.x_direction = random.randrange(14)
 		
 
 	def draw(self):
@@ -35,12 +35,14 @@ class Item:
 		elif self.x_direction == 2 or self.x_direction == 3 : self.dx = -0.5
 		elif self.x_direction == 4 or self.x_direction == 5 : self.dx = 1
 		elif self.x_direction == 6 or self.x_direction == 7 : self.dx = -1
-		elif self.x_direction == 8 or self.x_direction == 9 : self.dx = 1.5
-		else: self.dx = -1.5
+		elif self.x_direction == 8 or self.x_direction == 9 : self.dx = 1.2
+		elif self.x_direction == 10 or self.x_direction == 11 : self.dx = -1.2
+		else: self.dx = 0
 
 		if self.y < -ITEM_SIZE: self.remove()
 		
-	def generate(self):
+	def generate(self, x, y):
+		self.x, self.y = x, y
 		item = Item(self.x, self.y, self.dx, self.dy)
 		gfw.world.add(gfw.layer.item, item)
 

@@ -8,16 +8,16 @@ import item
 
 class Boss:
 	SIZE = 100
-	LASER_INTERVAL = 0.5
-	appear_boss_time = 5
+	LASER_INTERVAL = 0.35
+	appear_boss_time = 1
 
 	def __init__(self):
-		self.x, self.y = 375, get_canvas_height() - 300
+		self.x, self.y = 375, get_canvas_height()
 		self.dx, self.dy = 50, -50
 		self.image = gfw.image.load(RES_DIR + '/boss.png')
 		self.src_width = self.image.w // 2
 		self.src_height = self.image.h
-		self.max_life = 1000
+		self.max_life = 10000
 		self.life = self.max_life
 		self.fidx = 0
 		self.boss_time = 0
@@ -47,6 +47,7 @@ class Boss:
 
 			if self.boss_laser_time >= Boss.LASER_INTERVAL:
 				self.fire()
+		if self.life == self.max_life // 2 : Boss.LASER_INTERVAL = 0.2
 
 	def fire(self):
 		self.boss_laser_time = 0
@@ -66,8 +67,7 @@ class Boss:
 
 	def remove(self):
 		gfw.world.remove(self)
-		for i in range(30) :
-			item.Item.generate(self)
+		for i in range(30): item.Item.generate(self, 50, self.y + 10)
 
 	def get_bb(self):
 		hw = 200

@@ -9,6 +9,7 @@ class LaserBullet:
     Shoot_state = 0
     Power = 50
     SIZE = 50
+    SIZE2 = 0
     bullet_type = 0
     def __init__(self, x, y, speed):
         self.x, self.y = x, y
@@ -47,14 +48,18 @@ class LaserBullet:
 
         if LaserBullet.Shoot_state == 1:
             LaserBullet.Dualshoot_time -= gfw.delta_time
+            LaserBullet.Power = 75
+            LaserBullet.SIZE2 = 50
             if LaserBullet.Dualshoot_time < 0 :
                 LaserBullet.Dualshoot_time = 20
                 LaserBullet.Shoot_state = 0
+                LaserBullet.Power = 50
+                LaserBullet.SIZE2 = 0
 
     def remove(self):
         gfw.world.remove(self)
 
     def get_bb(self):
-        hw = LaserBullet.SIZE
+        hw = LaserBullet.SIZE + LaserBullet.SIZE2
         hh = LaserBullet.SIZE
         return self.x - hw, self.y + 75 - hh, self.x + hw, self.y + 75 + hh    
