@@ -3,8 +3,6 @@ import gfw
 from gobj import *
 
 class Score:
-    bullets = []
-    trashcan = []
     def __init__(self, right, y):
         self.right, self.y = right, y
         self.image = gfw.image.load(RES_DIR + '/number_font.png')
@@ -27,4 +25,4 @@ class Score:
 
     def update(self):
         if self.display < self.score:
-            self.display += 20
+            self.display += 10

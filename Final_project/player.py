@@ -19,7 +19,6 @@ class Player:
 
     LASER_INTERVAL = 0.08
 
-    #constructor
     def __init__(self):
         self.x, self.y = 375, 150
         self.dx = 0
@@ -43,6 +42,7 @@ class Player:
         self.damage = gfw.image.load(RES_DIR + '/damage.png')
 
         self.dualshoot_cnt = 0
+        self.dualshoot_wav = load_wav(RES_DIR +'/dual_shot.wav')
         self.powershoot_cnt = 9
         self.powershoot_wav = load_wav(RES_DIR +'/power_shot.wav')
 
@@ -99,16 +99,15 @@ class Player:
             if self.powershoot_cnt > 0:
                 self.powershoot_cnt -= 1
                 LaserBullet.Shoot_state = 2
-                LaserBullet.Power = 500
+                LaserBullet.Power = 200
                 self.powershoot_wav.play()
         if pair == (SDL_KEYDOWN, SDLK_LSHIFT):
-            #print(self.dualshoot_cnt)
             if self.dualshoot_cnt > 0 :
                 if LaserBullet.powershoot_time == 0 and self.dualshoot_cnt > 0: 
                     LaserBullet.Shoot_state = 1
                     LaserBullet.Dualshoot_time = 20
-
                 self.dualshoot_cnt -= 1
+                self.dualshoot_wav.play()
 
     def get_bb(self):
         hw = 30

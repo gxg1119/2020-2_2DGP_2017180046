@@ -4,10 +4,10 @@ from gobj import *
 from item import Item, Dual
 
 class LaserBullet:
-    Dualshoot_time = 5
+    Dualshoot_time = 0
     powershoot_time = 0
     Shoot_state = 0
-    Power = 50
+    Power = 60
     SIZE = 50
     SIZE2 = 0
     bullet_type = 0
@@ -40,20 +40,20 @@ class LaserBullet:
         if LaserBullet.Shoot_state == 2:
             LaserBullet.SIZE = 150
             LaserBullet.powershoot_time += gfw.delta_time
-            if LaserBullet.powershoot_time > 20 :
+            if LaserBullet.powershoot_time > 10 :
                 LaserBullet.powershoot_time = 0
                 LaserBullet.Shoot_state = 0
-                LaserBullet.Power = 50
+                LaserBullet.Power = 60
                 LaserBullet.SIZE = 50
 
         if LaserBullet.Shoot_state == 1:
             LaserBullet.Dualshoot_time -= gfw.delta_time
-            LaserBullet.Power = 75
+            LaserBullet.Power = 90
             LaserBullet.SIZE2 = 50
             if LaserBullet.Dualshoot_time < 0 :
                 LaserBullet.Dualshoot_time = 20
                 LaserBullet.Shoot_state = 0
-                LaserBullet.Power = 50
+                LaserBullet.Power = 60
                 LaserBullet.SIZE2 = 0
 
     def remove(self):

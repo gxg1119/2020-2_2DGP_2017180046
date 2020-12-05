@@ -41,13 +41,13 @@ class Enemy:
         self.effect_time += gfw.delta_time
         self.fidx = int(self.time * 10) % 2
         self.efdx = int(self.effect_time * 20) % 8
-        self.y += self.dy * gfw.delta_time * 120
+        self.y += self.dy * gfw.delta_time * 500
         if self.y < -Enemy.SIZE:
             self.remove()
             
     def remove(self):
         gfw.world.remove(self)
-        item.Item.generate(self, self.x, self.y)
+        item.Item.generate(self)
         item.Dual.generate(self)
 
     def decrease_life(self, amount):

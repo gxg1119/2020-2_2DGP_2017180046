@@ -12,11 +12,10 @@ class Item:
 
 	def init(self, x, y, dx, dy, imageName):
 		self.x, self.y = x, y
-		self.dx, self.dy = dx, -random.uniform(1.5, 2.5)
+		self.dx, self.dy = dx, -random.uniform(2, 3)
 		self.image = gfw.image.load(RES_DIR + imageName)
 		self.x_direction = random.randrange(14)
 		
-
 	def draw(self):
 		self.image.draw(self.x, self.y)
 
@@ -41,8 +40,7 @@ class Item:
 
 		if self.y < -ITEM_SIZE: self.remove()
 		
-	def generate(self, x, y):
-		self.x, self.y = x, y
+	def generate(self):
 		item = Item(self.x, self.y, self.dx, self.dy)
 		gfw.world.add(gfw.layer.item, item)
 
@@ -59,6 +57,6 @@ class Dual(Item):
 		self.init(x, y, dx, dy, '/dualshot.png')
 
 	def generate(self):
-		if random.randrange(2) == 0:
+		if random.randrange(10) == 0:
 			item = Dual(self.x, self.y, self.dx, self.dy)
 			gfw.world.add(gfw.layer.item, item)

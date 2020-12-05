@@ -5,7 +5,7 @@ import Title_state
 
 
 def enter():
-    global image, logo_image, elapsed
+    global image, elapsed
     image = gfw.image.load_image(RES_DIR + '/Loading.png')
     elapsed = 0
 
@@ -24,12 +24,14 @@ def handle_event(e):
         gfw.quit()
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
         gfw.quit()
+        
 def exit():
     global image
     del image
 
 def pause():
     pass
+
 def resume():
     pass
     

@@ -30,6 +30,7 @@ def draw():
     if sdnum == 0:
         sdimage_1.draw(550, 200)
     else : sdimage_2.draw(550, 200)
+
     gfw.world.draw()
 
     font.draw(100, 800, 'socre',(225,225,225))
@@ -43,7 +44,11 @@ def handle_event(e):
         gfw.pop()
 
 def exit():
-	pass
+    global image, sdimage_1, sdimage_2
+    del image
+    del sdimage_1
+    del sdimage_2
+
 def pause():
     pass
 def resume():

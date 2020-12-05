@@ -58,7 +58,13 @@ def handle_event(e):
             gfw.change(Play_state)
             
 def exit():
-	pass
+    global image, chimage1, chimage2, bgimage, koimage, botton_sd
+    del image
+    del chimage1
+    del chimage2
+    del bgimage
+    del koimage
+    del botton_sd
 
 def pause():
     pass

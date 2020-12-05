@@ -8,16 +8,15 @@ import item
 
 class Boss:
 	SIZE = 100
-	LASER_INTERVAL = 0.35
-	appear_boss_time = 1
+	LASER_INTERVAL = 0.5
 
 	def __init__(self):
-		self.x, self.y = 375, get_canvas_height()
+		self.x, self.y = get_canvas_width() // 2, get_canvas_height() + Boss.SIZE
 		self.dx, self.dy = 50, -50
 		self.image = gfw.image.load(RES_DIR + '/boss.png')
 		self.src_width = self.image.w // 2
 		self.src_height = self.image.h
-		self.max_life = 10000
+		self.max_life = 110000
 		self.life = self.max_life
 		self.fidx = 0
 		self.boss_time = 0
@@ -25,29 +24,25 @@ class Boss:
 
 	def draw(self):
 		sx = self.fidx * self.src_width
-		self.image.clip_draw(sx, 0, self.src_width, self.src_height, self.x, self.y,600,400)
+		self.image.clip_draw(sx, 0, self.src_width, self.src_height, self.x, self.y, 630, 420)
 		gy = self.y - Boss.SIZE - 50
 		rate = self.life / self.max_life
 		life_gauge.draw(self.x, gy, 300, rate)
 
 	def update(self):
-		Boss.appear_boss_time -= gfw.delta_time
 		self.boss_laser_time += gfw.delta_time
-		if Boss.appear_boss_time <0:
-			self.boss_time += gfw.delta_time
-			self.fidx = int(self.boss_time) % 2
+		self.boss_time += gfw.delta_time
+		self.fidx = int(self.boss_time) % 2
 
-			self.y += self.dy * gfw.delta_time
-			if self.y < 700 :
-				self.dy = 0
-				self.x += self.dx * gfw.delta_time
+		self.y += self.dy * gfw.delta_time
+		if self.y < 750 :
+			self.dy = 0
+			self.x += self.dx * gfw.delta_time
+			if self.x < 250 or self.x> 500 : self.dx*=-1
 
-				if self.x < 250 or self.x> 500:
-					self.dx*=-1
-
-			if self.boss_laser_time >= Boss.LASER_INTERVAL:
-				self.fire()
-		if self.life == self.max_life // 2 : Boss.LASER_INTERVAL = 0.2
+		if self.boss_laser_time >= Boss.LASER_INTERVAL : self.fire()
+		if self.life < self.max_life // 2 : Boss.LASER_INTERVAL = 0.25
+		if self.life < self.max_life // 4 : Boss.LASER_INTERVAL = 0.15
 
 	def fire(self):
 		self.boss_laser_time = 0
@@ -56,6 +51,7 @@ class Boss:
 
 	def generate(self):
 		boss = Boss()
+		Boss.LASER_INTERVAL = 0.5
 		gfw.world.add(gfw.layer.boss, boss)
 
 	def decrease_life(self, amount):
@@ -67,7 +63,6 @@ class Boss:
 
 	def remove(self):
 		gfw.world.remove(self)
-		for i in range(30): item.Item.generate(self, 50, self.y + 10)
 
 	def get_bb(self):
 		hw = 200

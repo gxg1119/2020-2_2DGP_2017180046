@@ -51,11 +51,18 @@ def handle_event(e):
             botton, start, end = (0, 1, 0)
         else : botton, start, end = (1, 1, 1)
 def exit():
-    global image
+    global image, game_start_box_01, game_end_box_01, game_start_box_02, game_end_box_02, music_bg, botton_sd
     del image
-
+    del game_start_box_01
+    del game_end_box_01
+    del game_start_box_02
+    del game_end_box_02
+    del music_bg
+    del botton_sd
+    
 def pause():
     pass
+
 def resume():
     pass
     
