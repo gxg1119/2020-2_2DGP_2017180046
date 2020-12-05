@@ -162,7 +162,7 @@ def update():
     dis_score.score += 10
     global boss_ox, boss_ap
     boss_ox += gfw.delta_time
-    print(boss_ox)
+
     if boss_ox < 75:
         enemy_gen.update()
     else :
